@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@dlos/core": ["packages/core/src/index.ts"],
+      "@dlos/collectors": ["packages/collectors/src/index.ts"],
+      "@dlos/rules": ["packages/rules/src/index.ts"],
+      "@dlos/storage": ["packages/storage/src/index.ts"],
+      "@dlos/reports": ["packages/reports/src/index.ts"]
+    }
+  },
+  "include": [
+    "apps/*/src/**/*.ts",
+    "apps/*/tests/**/*.ts",
+    "packages/*/src/**/*.ts",
+    "packages/*/tests/**/*.ts",
+    "vitest.config.ts",
+    "tsup.config.ts"
+  ],
+  "exclude": ["**/node_modules", "**/dist"]
+}

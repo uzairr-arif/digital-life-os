@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+allowBuilds:
+  # esbuild's postinstall validates/downloads its platform binary — trusted.
+  esbuild: true
