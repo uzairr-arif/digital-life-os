@@ -1,0 +1,9 @@
+{
+  "name": "@dlos/core",
+  "version": "0.1.0",
+  "description": "Shared types, contracts, risk ranking and scan orchestration for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
