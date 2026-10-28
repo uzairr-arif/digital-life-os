@@ -1,0 +1,12 @@
+{
+  "name": "@dlos/storage",
+  "version": "0.1.0",
+  "description": "Local SQLite storage layer (node:sqlite) for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@dlos/core": "workspace:*"
+  }
+}
