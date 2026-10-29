@@ -1,0 +1,12 @@
+{
+  "name": "@dlos/collectors",
+  "version": "0.1.0",
+  "description": "Passive security collectors (DNS, TLS, HTTP, email) for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@dlos/core": "workspace:*"
+  }
+}
