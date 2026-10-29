@@ -1,0 +1,13 @@
+{
+  "name": "@dlos/rules",
+  "version": "0.1.0",
+  "description": "Deterministic security rules and pass descriptions for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@dlos/core": "workspace:*",
+    "@dlos/collectors": "workspace:*"
+  }
+}
