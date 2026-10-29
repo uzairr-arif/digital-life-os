@@ -1,0 +1,6 @@
+{
+  "url": "http://example.com/",
+  "status": 302,
+  "location": "http://www.example.com/",
+  "redirectsToHttps": false
+}

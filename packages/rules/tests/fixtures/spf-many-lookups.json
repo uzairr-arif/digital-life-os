@@ -1,0 +1,5 @@
+{
+  "records": [
+    "v=spf1 include:_spf1.example include:_spf2.example include:_spf3.example include:_spf4.example include:_spf5.example include:_spf6.example include:_spf7.example include:_spf8.example include:_spf9.example include:_spf10.example include:_spf11.example -all"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "host": "example.com",
+  "port": 443,
+  "protocol": "TLSv1.3",
+  "cipher": "TLS_AES_256_GCM_SHA384",
+  "authorized": false,
+  "authorizationError": "self-signed certificate in certificate chain",
+  "certificate": {
+    "subjectCn": "example.com",
+    "issuerOrg": "example.com",
+    "issuerCn": "example.com",
+    "validFrom": "Jan  1 00:00:00 2026 GMT",
+    "validTo": "Jan  1 00:00:00 2027 GMT",
+    "validToIso": "2027-01-01T00:00:00.000Z",
+    "daysRemaining": 300,
+    "subjectAltName": "DNS:example.com"
+  }
+}

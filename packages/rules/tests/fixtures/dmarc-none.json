@@ -1,0 +1,3 @@
+{
+  "records": ["v=DMARC1; p=none; rua=mailto:dmarc-reports@example.com"]
+}

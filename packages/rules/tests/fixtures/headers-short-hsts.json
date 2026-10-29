@@ -1,0 +1,11 @@
+{
+  "url": "https://example.com/",
+  "status": 200,
+  "headers": {
+    "strict-transport-security": "max-age=86400",
+    "content-security-policy": "default-src 'self'",
+    "x-content-type-options": "nosniff",
+    "referrer-policy": "strict-origin-when-cross-origin"
+  },
+  "setCookieCount": 0
+}

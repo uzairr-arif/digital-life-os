@@ -1,0 +1,18 @@
+{
+  "host": "example.com",
+  "port": 443,
+  "protocol": "TLSv1.3",
+  "cipher": "TLS_AES_256_GCM_SHA384",
+  "authorized": true,
+  "authorizationError": null,
+  "certificate": {
+    "subjectCn": "example.com",
+    "issuerOrg": "Let's Encrypt",
+    "issuerCn": "R3",
+    "validFrom": "Sep  1 00:00:00 2026 GMT",
+    "validTo": "Nov 13 00:00:00 2026 GMT",
+    "validToIso": "2026-11-13T00:00:00.000Z",
+    "daysRemaining": 12,
+    "subjectAltName": "DNS:example.com, DNS:www.example.com"
+  }
+}

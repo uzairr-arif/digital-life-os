@@ -1,0 +1,3 @@
+{
+  "records": ["v=DMARC1; p=none", "v=DMARC1; p=reject"]
+}

@@ -1,0 +1,18 @@
+{
+  "host": "example.com",
+  "port": 443,
+  "protocol": "TLSv1.1",
+  "cipher": "ECDHE-RSA-AES256-SHA",
+  "authorized": true,
+  "authorizationError": null,
+  "certificate": {
+    "subjectCn": "example.com",
+    "issuerOrg": "Let's Encrypt",
+    "issuerCn": "R3",
+    "validFrom": "Sep  1 00:00:00 2026 GMT",
+    "validTo": "Jan 29 00:00:00 2027 GMT",
+    "validToIso": "2027-01-29T00:00:00.000Z",
+    "daysRemaining": 90,
+    "subjectAltName": "DNS:example.com"
+  }
+}

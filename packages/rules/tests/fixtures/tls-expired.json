@@ -1,0 +1,18 @@
+{
+  "host": "example.com",
+  "port": 443,
+  "protocol": "TLSv1.3",
+  "cipher": "TLS_AES_256_GCM_SHA384",
+  "authorized": false,
+  "authorizationError": "certificate has expired",
+  "certificate": {
+    "subjectCn": "example.com",
+    "issuerOrg": "Let's Encrypt",
+    "issuerCn": "R3",
+    "validFrom": "Aug  1 00:00:00 2026 GMT",
+    "validTo": "Oct 29 00:00:00 2026 GMT",
+    "validToIso": "2026-10-29T00:00:00.000Z",
+    "daysRemaining": -3,
+    "subjectAltName": "DNS:example.com"
+  }
+}

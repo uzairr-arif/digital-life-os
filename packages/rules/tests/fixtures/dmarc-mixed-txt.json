@@ -1,0 +1,3 @@
+{
+  "records": ["v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com", "some unrelated txt record at _dmarc"]
+}
