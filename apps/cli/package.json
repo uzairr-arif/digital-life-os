@@ -1,0 +1,22 @@
+{
+  "name": "@dlos/cli",
+  "version": "0.1.0",
+  "description": "dlos — Digital Life OS command line (local-first personal security)",
+  "type": "module",
+  "bin": {
+    "dlos": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsup ../../apps/cli/src/index.ts --config ../../tsup.config.ts"
+  },
+  "dependencies": {
+    "@dlos/collectors": "workspace:*",
+    "@dlos/core": "workspace:*",
+    "@dlos/reports": "workspace:*",
+    "@dlos/rules": "workspace:*",
+    "@dlos/storage": "workspace:*",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0"
+  }
+}
