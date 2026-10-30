@@ -1,0 +1,13 @@
+{
+  "name": "@dlos/reports",
+  "version": "0.1.0",
+  "description": "JSON and human-readable report rendering for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@dlos/core": "workspace:*",
+    "chalk": "^5.3.0"
+  }
+}
