@@ -1,0 +1,406 @@
+{
+  "tool": "dlos",
+  "version": "0.1.0",
+  "generatedAt": "2026-11-01T16:56:30.976Z",
+  "asset": {
+    "id": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+    "type": "domain",
+    "identifier": "example.com",
+    "ownershipConfirmedAt": "2026-11-01T16:55:29.821Z",
+    "dkimSelectors": [],
+    "createdAt": "2026-11-01T16:55:29.821Z",
+    "lastCheckedAt": "2026-11-01T16:55:35.252Z",
+    "active": true
+  },
+  "scan": {
+    "id": "dfa23446-383f-4918-90ef-b0a266db3846",
+    "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+    "startedAt": "2026-11-01T16:55:33.201Z",
+    "finishedAt": "2026-11-01T16:55:35.252Z",
+    "status": "completed",
+    "summary": {
+      "checksRun": 8,
+      "checksErrored": 0,
+      "openBySeverity": {
+        "critical": 0,
+        "high": 1,
+        "medium": 2,
+        "low": 3,
+        "info": 2
+      },
+      "acceptedCount": 0,
+      "passCount": 6
+    }
+  },
+  "summary": {
+    "checksRun": 8,
+    "checksErrored": 0,
+    "openBySeverity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 2,
+      "low": 3,
+      "info": 2
+    },
+    "acceptedCount": 0,
+    "passCount": 6
+  },
+  "findings": [
+    {
+      "id": "9134f7ad-15f4-4e8f-8223-a7186f80ef32",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "7cb0562973c9ae0788e326421ef1ba2d",
+      "ruleId": "https-redirect",
+      "checkId": "http.redirect",
+      "severity": "high",
+      "title": "HTTP does not redirect to HTTPS",
+      "status": "open",
+      "actionability": "immediate",
+      "detail": {
+        "observation": "The plain-HTTP endpoint responded directly with content (no redirect).",
+        "evidence": {
+          "checkId": "http.redirect",
+          "collectorId": "https",
+          "observedAt": "2026-11-01T16:55:35.148Z",
+          "data": {
+            "url": "http://example.com/",
+            "status": 200,
+            "location": null,
+            "redirectsToHttps": false
+          },
+          "error": null
+        },
+        "impact": "Visitors who type the bare domain (or follow old http:// links) reach an unencrypted version of the site; anyone on the network path can read or alter that traffic.",
+        "confidence": "high",
+        "recommendation": "Configure the web server to answer http:// with a 301 (or 308) redirect to the https:// URL, and keep the redirect permanent.",
+        "verification": "Open http://<domain>/ in a private window — it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.366Z",
+      "lastSeenAt": "2026-11-01T16:55:35.163Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 60,
+      "change": "recurring"
+    },
+    {
+      "id": "30157261-2a06-4be4-9359-07bc8fcc839d",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "61f34e3b3d8d89eced5c8d798ea675a3",
+      "ruleId": "header-hsts",
+      "checkId": "http.headers",
+      "severity": "medium",
+      "title": "Missing strict-transport-security header (HSTS)",
+      "status": "open",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The HTTPS response did not include a `strict-transport-security` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "Browsers may still try plain HTTP first (cookies and redirects included), letting an attacker downgrade the connection on open networks.",
+        "confidence": "high",
+        "recommendation": "Send `Strict-Transport-Security: max-age=31536000; includeSubDomains` (add `; preload` only after reviewing the HSTS preload requirements).",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.376Z",
+      "lastSeenAt": "2026-11-01T16:55:35.177Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 24,
+      "change": "recurring"
+    },
+    {
+      "id": "5b7399c6-8e53-48ab-a58d-bf4c211936fd",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "437f8fc72c1b2e7ba8b2328c2b31b45f",
+      "ruleId": "header-csp",
+      "checkId": "http.headers",
+      "severity": "medium",
+      "title": "Missing content-security-policy header (CSP)",
+      "status": "open",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The HTTPS response did not include a `content-security-policy` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "CSP is the main mitigation against cross-site scripting and unwanted third-party content injection. Without it, an injected script runs unrestricted.",
+        "confidence": "high",
+        "recommendation": "Start with a report-only policy (`Content-Security-Policy-Report-Only`) to learn what the page loads, then enforce a policy that begins with `default-src 'self'` and adds the specific sources you need.",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.385Z",
+      "lastSeenAt": "2026-11-01T16:55:35.187Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 24,
+      "change": "recurring"
+    },
+    {
+      "id": "a40e323c-f9d8-4f55-9638-247eaf36ac7d",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "413a92b2d50ecc0c0459da1f9b32e34f",
+      "ruleId": "header-x-content-type-options",
+      "checkId": "http.headers",
+      "severity": "low",
+      "title": "Missing x-content-type-options header",
+      "status": "open",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The HTTPS response did not include a `x-content-type-options` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "Browsers may sniff file types and execute an uploaded/served file as script even when the Content-Type says otherwise. The fix is one line: `X-Content-Type-Options: nosniff`.",
+        "confidence": "high",
+        "recommendation": "Send `X-Content-Type-Options: nosniff` on all responses.",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.392Z",
+      "lastSeenAt": "2026-11-01T16:55:35.199Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 8,
+      "change": "recurring"
+    },
+    {
+      "id": "3c7ca92c-63cf-48b0-8ab5-1fb8edfdbc99",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "d4d242129c121f2bf1a41293dacb04c6",
+      "ruleId": "header-x-frame-options",
+      "checkId": "http.headers",
+      "severity": "low",
+      "title": "Missing x-frame-options header",
+      "status": "open",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The HTTPS response did not include a `x-frame-options` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "The page can be embedded in iframes on other sites (clickjacking risk).",
+        "confidence": "high",
+        "recommendation": "Send `X-Frame-Options: DENY` (or SAMEORIGIN) — or use `frame-ancestors 'none'` in CSP, which supersedes it.",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.400Z",
+      "lastSeenAt": "2026-11-01T16:55:35.208Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 8,
+      "change": "recurring"
+    },
+    {
+      "id": "60d0c856-0286-4112-a367-ab67bb08a305",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "ce47e1df859953651949616b929a3448",
+      "ruleId": "header-referrer-policy",
+      "checkId": "http.headers",
+      "severity": "low",
+      "title": "Missing referrer-policy header",
+      "status": "open",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The HTTPS response did not include a `referrer-policy` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "Outbound links may leak full URLs (including query strings with tokens or personal data) to third-party sites.",
+        "confidence": "high",
+        "recommendation": "Send `Referrer-Policy: strict-origin-when-cross-origin` (or stricter).",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.412Z",
+      "lastSeenAt": "2026-11-01T16:55:35.217Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 8,
+      "change": "recurring"
+    },
+    {
+      "id": "90fdbae0-99cb-4189-bd8d-438eb6a966a3",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "3a886abb02a82f6d24d00d6c23548c01",
+      "ruleId": "caa-present",
+      "checkId": "dns.records",
+      "severity": "info",
+      "title": "No CAA policy published",
+      "status": "accepted",
+      "statusNote": "CAA planned for next maintenance window",
+      "actionability": "planned",
+      "detail": {
+        "observation": "The domain example.com publishes no CAA DNS records.",
+        "evidence": {
+          "checkId": "dns.records",
+          "collectorId": "dns",
+          "observedAt": "2026-11-01T16:55:33.985Z",
+          "data": {
+            "domain": "example.com",
+            "A": [
+              "104.20.23.154",
+              "172.66.147.243"
+            ],
+            "AAAA": [
+              "2606:4700:10::6814:179a",
+              "2606:4700:10::ac42:93f3"
+            ],
+            "MX": [
+              {
+                "exchange": "",
+                "priority": 0,
+                "type": "MX"
+              }
+            ],
+            "NS": [
+              "hera.ns.cloudflare.com",
+              "elliott.ns.cloudflare.com"
+            ],
+            "TXT": [
+              [
+                "v=spf1 -all"
+              ],
+              [
+                "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"
+              ]
+            ],
+            "CNAME": {
+              "error": "Error: queryCname ENODATA example.com"
+            },
+            "CAA": {
+              "error": "Error: queryCaa ENODATA example.com"
+            }
+          },
+          "error": null
+        },
+        "impact": "Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue — limiting the blast radius of CA compromise or mis-issuance.",
+        "confidence": "high",
+        "recommendation": "Add a CAA record for CAs you use, e.g. `example.com. IN CAA 0 issue \"letsencrypt.org\"` (plus an `issuewild` entry if you use wildcard certificates).",
+        "verification": "`dig CAA <domain> +short` should return the record; re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.453Z",
+      "lastSeenAt": "2026-11-01T16:55:35.236Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 0.8,
+      "change": "recurring"
+    },
+    {
+      "id": "d0c27786-7afa-49ee-abd6-d3ce5b9ee297",
+      "assetId": "99d8c8b7-3769-47e0-9232-1af3a9b4638c",
+      "fingerprint": "57d7e0b35a9e8fdd3a9cb67a75d294be",
+      "ruleId": "header-permissions-policy",
+      "checkId": "http.headers",
+      "severity": "info",
+      "title": "Missing permissions-policy header",
+      "status": "open",
+      "actionability": "informational",
+      "detail": {
+        "observation": "The HTTPS response did not include a `permissions-policy` header.",
+        "evidence": {
+          "checkId": "http.headers",
+          "collectorId": "http-headers",
+          "observedAt": "2026-11-01T16:55:34.883Z",
+          "data": {
+            "url": "https://example.com/",
+            "status": 200,
+            "headers": {
+              "server": "cloudflare"
+            },
+            "setCookieCount": 0
+          },
+          "error": null
+        },
+        "impact": "Powerful browser features (camera, microphone, geolocation, …) are not explicitly restricted, so any embedded third-party content may request them.",
+        "confidence": "high",
+        "recommendation": "Send a `Permissions-Policy` header that denies features you do not use, e.g. `camera=(), microphone=(), geolocation=()`.",
+        "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+      },
+      "firstSeenAt": "2026-11-01T16:55:32.443Z",
+      "lastSeenAt": "2026-11-01T16:55:35.227Z",
+      "lastSeenScanId": "dfa23446-383f-4918-90ef-b0a266db3846",
+      "priorityScore": 0.5,
+      "change": "recurring"
+    }
+  ],
+  "passes": [
+    {
+      "checkId": "dns.records",
+      "title": "DNS records resolved",
+      "text": "A: 2 · AAAA: 2 · MX: 1 · NS: 2"
+    },
+    {
+      "checkId": "email.spf",
+      "title": "SPF record published",
+      "text": "hardfail (-all)"
+    },
+    {
+      "checkId": "email.dmarc",
+      "title": "DMARC enforcement enabled",
+      "text": "p=reject"
+    },
+    {
+      "checkId": "tls.certificate",
+      "title": "TLS certificate trusted",
+      "text": "issuer: SSL Corporation · expires 2026-12-25 (54 days)"
+    },
+    {
+      "checkId": "tls.certificate",
+      "title": "Modern TLS protocol",
+      "text": "negotiated TLSv1.3"
+    },
+    {
+      "checkId": "http.https",
+      "title": "HTTPS reachable",
+      "text": "https://example.com responded 200"
+    }
+  ],
+  "erroredChecks": []
+}

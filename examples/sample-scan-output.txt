@@ -1,0 +1,81 @@
+<!-- Real output from a dlos scan of example.com (the IANA documentation domain), 2026-11-01. Shown as an example of the intended experience. -->
+dlos report — example.com
+scan dfa23446 · 2026-11-01 21:55 · completed
+
+8 open findings — 1 high, 2 medium, 3 low, 2 info
+6 checks verified · 8 ran · 0 errored
+
+Findings (by priority)
+
+ 1. HIGH      HTTP does not redirect to HTTPS recurring
+    rule https-redirect · score 60 · status open · first seen today
+    Observed: The plain-HTTP endpoint responded directly with content (no redirect).
+    Impact:   Visitors who type the bare domain (or follow old http:// links) reach an unencrypted version of the site; anyone on the network path can read or alter that traffic.
+    Fix:      Configure the web server to answer http:// with a 301 (or 308) redirect to the https:// URL, and keep the redirect permanent.
+    Verify:   Open http://<domain>/ in a private window — it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. The next `dlos scan` verifies the fix a…
+    Evidence: http.redirect · confidence high · {"checkId":"http.redirect","collectorId":"https","observedAt":"2026-11-01T16:55:35.148Z","data":{"url":"http://example.com/","status":200,"…
+
+ 2. MEDIUM    Missing strict-transport-security header (HSTS) recurring
+    rule header-hsts · score 24 · status open · first seen today
+    Observed: The HTTPS response did not include a `strict-transport-security` header.
+    Impact:   Browsers may still try plain HTTP first (cookies and redirects included), letting an attacker downgrade the connection on open networks.
+    Fix:      Send `Strict-Transport-Security: max-age=31536000; includeSubDomains` (add `; preload` only after reviewing the HSTS preload requirements).
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+ 3. MEDIUM    Missing content-security-policy header (CSP) recurring
+    rule header-csp · score 24 · status open · first seen today
+    Observed: The HTTPS response did not include a `content-security-policy` header.
+    Impact:   CSP is the main mitigation against cross-site scripting and unwanted third-party content injection. Without it, an injected script runs unrestricted.
+    Fix:      Start with a report-only policy (`Content-Security-Policy-Report-Only`) to learn what the page loads, then enforce a policy that begins with `default-src 'self'` and adds the specific sources you nee…
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+ 4. LOW       Missing x-content-type-options header recurring
+    rule header-x-content-type-options · score 8 · status open · first seen today
+    Observed: The HTTPS response did not include a `x-content-type-options` header.
+    Impact:   Browsers may sniff file types and execute an uploaded/served file as script even when the Content-Type says otherwise. The fix is one line: `X-Content-Type-Options: nosniff`.
+    Fix:      Send `X-Content-Type-Options: nosniff` on all responses.
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+ 5. LOW       Missing x-frame-options header recurring
+    rule header-x-frame-options · score 8 · status open · first seen today
+    Observed: The HTTPS response did not include a `x-frame-options` header.
+    Impact:   The page can be embedded in iframes on other sites (clickjacking risk).
+    Fix:      Send `X-Frame-Options: DENY` (or SAMEORIGIN) — or use `frame-ancestors 'none'` in CSP, which supersedes it.
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+ 6. LOW       Missing referrer-policy header recurring
+    rule header-referrer-policy · score 8 · status open · first seen today
+    Observed: The HTTPS response did not include a `referrer-policy` header.
+    Impact:   Outbound links may leak full URLs (including query strings with tokens or personal data) to third-party sites.
+    Fix:      Send `Referrer-Policy: strict-origin-when-cross-origin` (or stricter).
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+ 7. INFO      No CAA policy published recurring
+    rule caa-present · score 0.8 · status accepted (CAA planned for next maintenance window) · first seen today
+    Observed: The domain example.com publishes no CAA DNS records.
+    Impact:   Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue — limiting the blast radius of CA compromise or mis-issuance.
+    Fix:      Add a CAA record for CAs you use, e.g. `example.com. IN CAA 0 issue "letsencrypt.org"` (plus an `issuewild` entry if you use wildcard certificates).
+    Verify:   `dig CAA <domain> +short` should return the record; re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: dns.records · confidence high · {"checkId":"dns.records","collectorId":"dns","observedAt":"2026-11-01T16:55:33.985Z","data":{"domain":"example.com","A":["104.20.23.154","1…
+
+ 8. INFO      Missing permissions-policy header recurring
+    rule header-permissions-policy · score 0.5 · status open · first seen today
+    Observed: The HTTPS response did not include a `permissions-policy` header.
+    Impact:   Powerful browser features (camera, microphone, geolocation, …) are not explicitly restricted, so any embedded third-party content may request them.
+    Fix:      Send a `Permissions-Policy` header that denies features you do not use, e.g. `camera=(), microphone=(), geolocation=()`.
+    Verify:   Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved.
+    Evidence: http.headers · confidence high · {"checkId":"http.headers","collectorId":"http-headers","observedAt":"2026-11-01T16:55:34.883Z","data":{"url":"https://example.com/","status…
+
+Verified (checks that passed)
+  ✔ DNS records resolved — A: 2 · AAAA: 2 · MX: 1 · NS: 2
+  ✔ SPF record published — hardfail (-all)
+  ✔ DMARC enforcement enabled — p=reject
+  ✔ TLS certificate trusted — issuer: SSL Corporation · expires 2026-12-25 (54 days)
+  ✔ Modern TLS protocol — negotiated TLSv1.3
+  ✔ HTTPS reachable — https://example.com responded 200
+
