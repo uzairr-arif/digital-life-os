@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & ideas (before filing)
+    about: Ask how dlos works or discuss direction
+    url: https://github.com/YOUR_USERNAME/digital-life-os/discussions
