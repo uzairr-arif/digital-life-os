@@ -9,7 +9,7 @@ count here.
 Prerequisites: **Node.js ≥ 22.13** and **pnpm** (via `corepack enable`).
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/digital-life-os.git
+git clone https://github.com/uzairr-arif/digital-life-os.git
 cd digital-life-os
 pnpm install
 

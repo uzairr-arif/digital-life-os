@@ -5,6 +5,14 @@
   "description": "Digital Life OS — a local-first, evidence-driven personal security companion. Know what you own, what changed, what to fix, and whether the fix worked.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzairr-arif/digital-life-os.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uzairr-arif/digital-life-os/issues"
+  },
+  "homepage": "https://uzairr-arif.github.io/digital-life-os/",
   "engines": {
     "node": ">=22.13.0"
   },

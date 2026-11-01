@@ -39,4 +39,4 @@ exposed, fix what matters, verify the fix.
 - **Documentation** — architecture & data model, rule format guide,
   security & privacy model, and product spec/roadmap.
 
-[0.1.0]: https://github.com/YOUR_USERNAME/digital-life-os/releases/tag/v0.1.0
+[0.1.0]: https://github.com/uzairr-arif/digital-life-os/releases/tag/v0.1.0
