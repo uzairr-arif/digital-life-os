@@ -1,15 +1,24 @@
-# Digital Life OS
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A522.13-brightgreen.svg)](https://nodejs.org)
-[![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](CHANGELOG.md)
-<!-- CI badge — enable after pushing to GitHub:
-[![CI](https://github.com/YOUR_USERNAME/digital-life-os/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/digital-life-os/actions/workflows/ci.yml)
--->
+<img src="assets/logo.svg" width="92" alt="Digital Life OS logo">
+
+# digital life os
 
 **A local-first, evidence-driven personal security companion.**
 
-Know what you own · understand what is exposed · fix what matters · **verify the fix worked.**
+*Know what you own · understand what is exposed · fix what matters · **verify the fix worked.***
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/uzairr-arif/digital-life-os/actions/workflows/ci.yml/badge.svg)](https://github.com/uzairr-arif/digital-life-os/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/node-%E2%89%A522.13-brightgreen.svg)](https://nodejs.org)
+[![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](CHANGELOG.md)
+[![Site](https://img.shields.io/badge/site-uzairr--arif.github.io%2Fdigital--life--os-34D399.svg)](https://uzairr-arif.github.io/digital-life-os/)
+
+[Website](https://uzairr-arif.github.io/digital-life-os/) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md)
+
+</div>
+
+---
 
 Most security tools answer one question: *"What did this scan find?"*
 Digital Life OS answers four connected questions:
@@ -25,10 +34,35 @@ The loop is the product:
 Discover ──▶ Understand ──▶ Act & verify ──▶ Build history
 ```
 
-Status: **MVP (CLI-first alpha)** — deterministic checks for domains. Desktop app, device
-posture and personal mode come later ([roadmap](docs/product-spec.md)).
+Status: **v0.1.0 (CLI-first alpha)** — deterministic checks for domains. The desktop app
+and personal mode come later ([roadmap](ROADMAP.md)).
 
----
+## What it looks like
+
+Real output from a scan:
+
+```text
+$ dlos scan example.com
+
+1 high finding — 2 medium, 3 low, 2 info
+6 checks verified · 8 ran · 0 errored
+
+Findings (by priority)
+
+ 1. HIGH      HTTP does not redirect to HTTPS                    new
+    Observed: The plain-HTTP endpoint responded directly with content (no redirect).
+    Impact:   Anyone on the network path can read or alter that traffic.
+    Fix:      Configure the web server to answer http:// with a 301 redirect.
+    Verify:   Re-run dlos scan; the check moves to 'verified' when fixed.
+
+Verified (checks that passed)
+  ✔ HTTPS redirect verified — HTTP 301 → https://example.com/
+  ✔ TLS certificate trusted — issuer: SSL Corporation · expires 2026-12-25 (54 days)
+  ✔ DMARC enforcement enabled — p=reject
+```
+
+After you fix a finding, the next scan marks it **resolved** and records the before/after
+evidence. That is worth more than a score of 82/100.
 
 ## What it checks (and how safely)
 
@@ -45,8 +79,7 @@ exploitation, no intrusive port scanning:
 
 Every finding carries a consistent structure: **observation, evidence, impact,
 confidence, recommended action, verification, and history.** Checks that pass are shown
-too — as verified evidence, not just a green tick. There is deliberately **no**
-"security score of 82/100".
+too, as verified evidence. There is deliberately **no** "security score".
 
 ## Quickstart
 
@@ -106,6 +139,7 @@ digital-life-os/
 │   ├── rules/            # deterministic rules + "verified" pass descriptions
 │   ├── storage/          # SQLite (node:sqlite), migrations, cascade deletes
 │   └── reports/          # JSON + human-readable rendering
+├── site/                 # landing page (GitHub Pages)
 ├── docs/                 # architecture, rule format, security model, product spec
 └── examples/             # sample reports
 ```
@@ -128,9 +162,9 @@ clock are injected, and rules are exercised against JSON evidence fixtures.
 
 ## Contributing
 
-Rules are pure functions over observations — no network, no randomness. The
-highest-value contribution is a new rule with fixtures (including a
-false-positive case). Start here:
+The highest-value contribution is a new rule with fixtures (including a
+false-positive case). Rules are pure functions over observations — no network, no
+randomness. Start here:
 
 - [CONTRIBUTING.md](CONTRIBUTING.md) — setup, commit style, PR checklist
 - Security issues: [SECURITY.md](SECURITY.md) (private disclosure, please)
@@ -148,9 +182,6 @@ export const hstsRule: Rule = {
   },
 };
 ```
-
-Every rule ships with JSON fixtures and tests (see `packages/rules/tests/fixtures/`).
-Details: [docs/rule-format.md](docs/rule-format.md).
 
 ## Documentation
 
@@ -170,4 +201,4 @@ Details: [docs/rule-format.md](docs/rule-format.md).
 
 ## License
 
-MIT
+[MIT](LICENSE)
