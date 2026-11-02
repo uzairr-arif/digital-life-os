@@ -5,3 +5,7 @@ packages:
 allowBuilds:
   # esbuild's postinstall validates/downloads its platform binary — trusted.
   esbuild: true
+
+# Security: vitest pins vite 6.x; force the patched line (≥6.4.4, see GHSA-9jrq-w75r-8gcw).
+overrides:
+  vite: ^6.4.4

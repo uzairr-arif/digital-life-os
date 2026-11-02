@@ -15,12 +15,6 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    // Keep ALL node: builtins (incl. node:sqlite, missing from Vite 5's list) external.
-    server: {
-      deps: {
-        external: [/^node:/],
-      },
-    },
     include: ["packages/*/tests/**/*.test.ts", "apps/*/tests/**/*.test.ts"],
   },
 });
