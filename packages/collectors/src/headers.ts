@@ -18,11 +18,31 @@ export const CAPTURED_HEADERS = [
   "x-powered-by",
 ] as const;
 
+export type CookieFlags = {
+  /** Only flag PRESENCE is recorded — never cookie names, values or domains. */
+  secure: boolean;
+  httponly: boolean;
+  samesite: boolean;
+}
+
 export type HeadersObservation = {
   url: string;
   status: number;
   headers: Record<string, string>;
   setCookieCount: number;
+  cookies?: CookieFlags[];
+}
+
+/** Extract only the presence of security flags from Set-Cookie strings. */
+export function cookieFlagsOnly(setCookies: string[]): CookieFlags[] {
+  return setCookies.map((raw) => {
+    const attrs = raw.toLowerCase();
+    return {
+      secure: /\bsecure\b/.test(attrs),
+      httponly: /\bhttponly\b/.test(attrs),
+      samesite: /\bsamesite=/i.test(attrs),
+    };
+  });
 }
 
 /** Security headers observed on the HTTPS response (after redirects). */
@@ -46,6 +66,7 @@ export const headersCollector: Collector = {
         status: res.status,
         headers,
         setCookieCount: countSetCookies(res),
+        cookies: cookieFlagsOnly(getSetCookieList(res)),
       };
       return [{ checkId: "http.headers", data }];
     } catch (err) {
@@ -53,3 +74,14 @@ export const headersCollector: Collector = {
     }
   },
 };
+
+function getSetCookieList(res: Response): string[] {
+  try {
+    const h = res.headers as Headers & { getSetCookie?: () => string[] };
+    if (typeof h.getSetCookie === "function") return h.getSetCookie();
+  } catch {
+    // fall through
+  }
+  const v = res.headers.get("set-cookie");
+  return v ? [v] : [];
+}
