@@ -8,6 +8,7 @@ import type {
   SpfObservation,
   DmarcObservation,
   DkimObservation,
+  SecurityTxtObservation,
 } from "@dlos/collectors";
 import { parseDmarc, parseSpf } from "./parsers";
 
@@ -144,6 +145,18 @@ export const passCatalog: PassCatalog = {
           title: "DKIM record found",
           text: `selector "${s.selector}" published`,
         }));
+    },
+  },
+  "web.securitytxt": {
+    describe: (data) => {
+      const d = data as unknown as SecurityTxtObservation;
+      if (!d.found || !d.hasContact) return [];
+      return [
+        {
+          title: "security.txt published",
+          text: `Contact field present${d.hasExpires ? " · Expires present" : ""}`,
+        },
+      ];
     },
   },
 };

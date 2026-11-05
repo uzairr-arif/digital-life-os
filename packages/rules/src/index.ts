@@ -20,3 +20,5 @@ export {
   dmarcPolicyRule,
 } from "./email";
 export { caaPresentRule } from "./dns";
+export { securityTxtRule } from "./web";
+export { cookieSecureRule, cookieHttpOnlyRule, cookieSameSiteRule } from "./cookies";
