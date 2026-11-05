@@ -234,6 +234,39 @@ describe("false-positive guards (regression)", () => {
   });
 });
 
+describe("security.txt rules (v0.2)", () => {
+  it("flags missing security.txt as info", () => {
+    const r = byRule(runAll("web.securitytxt", "securitytxt-missing"));
+    expect(r["web-securitytxt"]!.severity).toBe("info");
+    expect(r["web-securitytxt"]!.title).toContain("No security.txt");
+  });
+
+  it("flags a file without Contact at low, stays quiet on a complete file", () => {
+    const r = byRule(runAll("web.securitytxt", "securitytxt-no-contact"));
+    expect(r["web-securitytxt"]!.severity).toBe("low");
+    expect(r["web-securitytxt"]!.subject).toBe("no-contact");
+    expect(runAll("web.securitytxt", "securitytxt-ok")).toEqual([]);
+  });
+});
+
+describe("cookie flag rules (v0.2)", () => {
+  it("counts cookies per missing flag, without ever seeing names or values", () => {
+    const hits = runAll("http.headers", "headers-cookie-flags");
+    const r = byRule(hits);
+    expect(r["cookie-secure"]!.severity).toBe("low");
+    expect(r["cookie-secure"]!.title).toContain("1 cookie");
+    expect(r["cookie-httponly"]!.title).toContain("2 cookie");
+    expect(r["cookie-samesite"]!.severity).toBe("info");
+    // fixture keeps 5 of 6 headers (permissions-policy missing → 1 finding) + 3 cookie rules
+    expect(hits).toHaveLength(4);
+  });
+
+  it("stays quiet when all cookies carry all flags, or when no cookies are present", () => {
+    expect(runAll("http.headers", "headers-complete")).toEqual([]);
+    expect(runAll("http.headers", "headers-missing")).toHaveLength(6); // no cookies field → no cookie findings
+  });
+});
+
 describe("determinism", () => {
   it("the same fixture always produces the same findings", () => {
     const a = runAll("http.headers", "headers-missing");

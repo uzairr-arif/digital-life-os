@@ -1,0 +1,17 @@
+{
+  "url": "https://example.com/",
+  "status": 200,
+  "headers": {
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "content-security-policy": "default-src 'self'",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY",
+    "referrer-policy": "strict-origin-when-cross-origin"
+  },
+  "setCookieCount": 3,
+  "cookies": [
+    { "secure": true, "httponly": true, "samesite": true },
+    { "secure": false, "httponly": false, "samesite": true },
+    { "secure": true, "httponly": false, "samesite": false }
+  ]
+}

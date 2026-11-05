@@ -10,5 +10,6 @@
     "permissions-policy": "camera=(), microphone=(), geolocation=()",
     "server": "nginx"
   },
-  "setCookieCount": 1
+  "setCookieCount": 1,
+  "cookies": [{ "secure": true, "httponly": true, "samesite": true }]
 }

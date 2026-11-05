@@ -1,0 +1,8 @@
+{
+  "found": true,
+  "url": "https://example.com/.well-known/security.txt",
+  "status": 200,
+  "hasContact": true,
+  "hasExpires": true,
+  "isWellKnown": true
+}
