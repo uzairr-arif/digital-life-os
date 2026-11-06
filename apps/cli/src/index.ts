@@ -7,6 +7,7 @@ import { registerScanCommand } from "./commands/scan";
 import { registerFindingsCommands } from "./commands/findings";
 import { registerHistoryCommand } from "./commands/history";
 import { registerReportCommand } from "./commands/report";
+import { registerWatchCommand } from "./commands/watch";
 
 const program = new Command();
 
@@ -24,6 +25,7 @@ registerScanCommand(program);
 registerFindingsCommands(program);
 registerHistoryCommand(program);
 registerReportCommand(program);
+registerWatchCommand(program);
 
 program
   .parseAsync(process.argv)
