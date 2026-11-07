@@ -18,21 +18,17 @@ act & verify → history) rather than adding a disconnected tool.
 - Transparent prioritization (no opaque score)
 - Local SQLite storage, JSON + human reports, CI-friendly CLI exit codes
 
-## 🎯 Next — v0.2 · daily usefulness
+### v0.2.0 — 2026-11-07 · daily usefulness
 
-Goal: make `dlos` something you run every week, not once.
+- `dlos watch`: scheduled rechecks (`--every`), webhook notifications
+  (`--webhook`), severity filtering, and `--once` for OS schedulers
+- Change digest that reports only new/regressed findings — recurring issues
+  never nag
+- New rules: security.txt (RFC 9116), cookie security flags
+  (Secure/HttpOnly/SameSite — flag presence only, never cookie names or values)
+- All 18 Dependabot alerts cleared; `pnpm audit` clean
 
-- **Scheduled rechecks** — `dlos scan --watch` plus OS-scheduler guidance
-  (cron/Task Manager), storing a scan trail automatically
-- **Change notifications** — new/regressed findings surfaced without re-reading
-  reports (log digest, webhook; desktop notification comes with the app)
-- **More deterministic rules** — candidates: `security.txt` presence, DNSSEC,
-  cookie flags (Secure/HttpOnly — counted, never valued), wildcard certificate
-  detection, MX↔SPF consistency
-- **HTML report export** — single self-contained file, still no upload
-- Rule-authoring ergonomics: rule test scaffolding generator
-
-## 🔭 Later — v0.3 · desktop experience
+## 🎯 Next — v0.3 · desktop experience
 
 - Desktop app (Electron, sandboxed renderer, narrow validated bridge) on the
   **same shared engine** — the CLI stays first-class

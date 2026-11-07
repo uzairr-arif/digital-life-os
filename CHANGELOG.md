@@ -5,6 +5,31 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-11-07
+
+The daily-usefulness release: dlos now keeps watching after the first scan.
+
+### Added
+
+- **`dlos watch`** — re-scan every active asset on a schedule (`--every 30m|6h|1d`),
+  notify on notable changes via `--webhook`, filter with `--min-severity`, or run a
+  single pass with `--once` under cron/Task Scheduler.
+- **Change digest core** — only genuinely *new* or *regressed* findings notify;
+  recurring findings never nag. Webhook payloads are structured JSON.
+- **security.txt rule (RFC 9116)** — missing file (info), file without a required
+  `Contact` field (low), and a "verified" pass for a complete file.
+- **Cookie security-flag rules** — cookies lacking `Secure` or `HttpOnly` (low) or
+  `SameSite` (info). Only flag *presence* is recorded; cookie names, values and
+  domains are never stored.
+- New collector: `webmeta` (security.txt lookup with the RFC's `.well-known` +
+  root-path fallback).
+- Launch videos (dark + light themes) for the project page and socials.
+
+### Fixed
+
+- Cleared all 18 Dependabot alerts (vitest 5.0.5, vite 6.4.5 via override, tsup 9,
+  esbuild 0.25.12/0.28.2, @types/node 26); `pnpm audit` is clean.
+
 ## [0.1.0] - 2026-10-31
 
 First release of the CLI-first MVP: a local-first, evidence-driven personal
@@ -39,4 +64,5 @@ exposed, fix what matters, verify the fix.
 - **Documentation** — architecture & data model, rule format guide,
   security & privacy model, and product spec/roadmap.
 
+[0.2.0]: https://github.com/uzairr-arif/digital-life-os/releases/tag/v0.2.0
 [0.1.0]: https://github.com/uzairr-arif/digital-life-os/releases/tag/v0.1.0

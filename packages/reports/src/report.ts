@@ -9,7 +9,7 @@ import type {
   ScanSummary,
 } from "@dlos/core";
 
-export const TOOL_VERSION = "0.1.0";
+export const TOOL_VERSION = "0.2.0";
 
 export interface ReportFinding extends Finding {
   /** Latest lifecycle change observed for this finding (new/recurring/resolved/regressed). */

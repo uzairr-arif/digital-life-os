@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/uzairr-arif/digital-life-os/actions/workflows/ci.yml/badge.svg)](https://github.com/uzairr-arif/digital-life-os/actions/workflows/ci.yml)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522.13-brightgreen.svg)](https://nodejs.org)
-[![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.2.0-informational.svg)](CHANGELOG.md)
 [![Site](https://img.shields.io/badge/site-uzairr--arif.github.io%2Fdigital--life--os-34D399.svg)](https://uzairr-arif.github.io/digital-life-os/)
 
 [Website](https://uzairr-arif.github.io/digital-life-os/) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md)
@@ -73,9 +73,10 @@ exploitation, no intrusive port scanning:
 | --- | --- |
 | HTTPS | HTTP→HTTPS redirect, HTTPS reachability |
 | TLS | certificate expiry, trust/hostname validation, protocol version |
-| HTTP headers | HSTS, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy |
+| HTTP headers | HSTS, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, cookie security flags (Secure/HttpOnly/SameSite — flags only, never names or values) |
 | Email domain | SPF (presence, `all` qualifier, 10-lookup limit), DMARC (presence, `p=` policy), DKIM (only for selectors you configure) |
 | DNS | record inventory (A/AAAA/MX/NS/TXT/CNAME), CAA policy |
+| Web | security.txt (RFC 9116): presence and required fields |
 
 Every finding carries a consistent structure: **observation, evidence, impact,
 confidence, recommended action, verification, and history.** Checks that pass are shown
@@ -121,7 +122,12 @@ dlos finding show <id> [--json]
 dlos finding status <id> <open|in_progress|accepted|resolved> [--note ...]
 dlos history <domain> [--limit n] [--json]
 dlos report <domain> [--format text|json] [--out file]
+dlos watch [--every 30m|6h|1d] [--webhook url] [--min-severity s] [--once]
 ```
+
+**Scheduled rechecks**: `dlos watch` re-scans every active asset on an interval and
+notifies only on *new* or *regressed* findings (recurring issues never nag), in the
+console and via an optional webhook. Under cron/Task Scheduler use `dlos watch --once`.
 
 **Exit codes** (`scan` is CI-friendly): `0` = clean or below the threshold,
 `1` = open findings at/above `--fail-on` (default `high`), `2` = operational error.
@@ -152,7 +158,7 @@ desktop app will never be separate products.
 ```bash
 pnpm install
 pnpm typecheck   # strict TypeScript across the workspace
-pnpm test        # 57 offline tests — no network required
+pnpm test        # 66 offline tests — no network required
 pnpm build       # bundle the dlos CLI to apps/cli/dist
 pnpm dlos        # run the CLI from source
 ```
