@@ -1,0 +1,1 @@
+dlos scans the domains you own, explains every finding with evidence, and proves your fixes worked on the next scan. Local-first, MIT, zero telemetry. github.com/uzairr-arif/digital-life-os

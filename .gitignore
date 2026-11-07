@@ -4,3 +4,6 @@ dist/
 *.local.db
 .dlos/
 .DS_Store
+
+# launch video intermediates (frames, stems)
+brag-output/work/
