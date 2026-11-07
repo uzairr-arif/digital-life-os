@@ -5,5 +5,5 @@ dist/
 .dlos/
 .DS_Store
 
-# launch video intermediates (frames, stems)
-brag-output/work/
+# launch videos and their intermediates stay local
+brag-output/
