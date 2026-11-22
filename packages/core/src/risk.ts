@@ -11,7 +11,7 @@ import type {
  * priority = severityWeight × confidenceWeight × actionabilityWeight
  *
  * The formula is published on purpose: no opaque 0–100 "security score",
- * no hidden machine learning — a user can recompute any priority by hand.
+ * no hidden machine learning - a user can recompute any priority by hand.
  */
 export const SEVERITY_ORDER: readonly Severity[] = [
   "info",

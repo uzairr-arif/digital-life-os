@@ -7,7 +7,7 @@ interface Migration {
 }
 
 /**
- * Schema v1 — assets, scans, observations (evidence), findings, events.
+ * Schema v1 - assets, scans, observations (evidence), findings, events.
  * All timestamps are ISO-8601 UTC strings; all payloads are JSON.
  */
 const MIGRATIONS: Migration[] = [

@@ -7,7 +7,7 @@ import { emailCollector } from "./email";
 import { securityTxtCollector } from "./webmeta";
 import { defaultResolver } from "./resolver";
 
-/** The collector set — passive, read-only checks only. */
+/** The collector set - passive, read-only checks only. */
 export const defaultCollectors: Collector[] = [
   dnsCollector,
   httpsCollector,

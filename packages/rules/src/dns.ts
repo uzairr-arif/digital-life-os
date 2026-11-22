@@ -23,7 +23,7 @@ export const caaPresentRule: Rule = {
       const error = String((d.CAA as { error: unknown }).error);
       // ENODATA = the domain exists but publishes no CAA records.
       if (error.includes("ENODATA")) hasCaa = false;
-      // Other errors (network, SERVFAIL) are inconclusive — never flag on them.
+      // Other errors (network, SERVFAIL) are inconclusive - never flag on them.
     }
     if (hasCaa !== false) return [];
 
@@ -39,7 +39,7 @@ export const caaPresentRule: Rule = {
           observation: `The domain ${ctx.asset.identifier} publishes no CAA DNS records.`,
           evidence: evidenceOf(ctx, "dns.records"),
           impact:
-            "Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue — limiting the blast radius of CA compromise or mis-issuance.",
+            "Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue - limiting the blast radius of CA compromise or mis-issuance.",
           confidence: "high",
           recommendation:
             "Add a CAA record for CAs you use, e.g. `example.com. IN CAA 0 issue \"letsencrypt.org\"` (plus an `issuewild` entry if you use wildcard certificates).",

@@ -25,13 +25,13 @@ permission, credit is given in the release notes.
 
 ## Scope
 
-**In scope:** the `dlos` CLI and its packages — storage (data-at-rest handling),
+**In scope:** the `dlos` CLI and its packages - storage (data-at-rest handling),
 report export, scan orchestration, dependency supply chain (build scripts,
 lockfile), and anything that could cause dlos to scan targets outside the
 user's confirmed scope.
 
 **Out of scope:** the websites/domains being scanned (report those to their
-owners — dlos is passive and read-only by design), and social-engineering of
+owners - dlos is passive and read-only by design), and social-engineering of
 end users.
 
 ## Design invariants worth knowing when auditing
@@ -41,6 +41,6 @@ end users.
 - The engine refuses to scan assets without an explicit ownership/authorization
   confirmation (`--confirm`), which is persisted.
 - Scans are passive: DNS queries, at most one HTTPS fetch and one TLS
-  handshake per domain per check set — no brute force, no exploitation.
+  handshake per domain per check set - no brute force, no exploitation.
 - Findings distinguish observation from interpretation; network errors never
   become security findings.

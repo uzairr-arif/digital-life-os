@@ -1,7 +1,7 @@
 import type { Asset, JsonValue } from "./types";
 
 
-/** DNS resolver port — injectable so tests never touch the network. */
+/** DNS resolver port - injectable so tests never touch the network. */
 export interface DomainResolver {
   resolveTxt(name: string): Promise<string[][]>;
   resolveMx(name: string): Promise<{ exchange: string; priority: number }[]>;

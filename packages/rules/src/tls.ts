@@ -14,7 +14,7 @@ function tlsVersion(protocol: string): number | null {
 
 /**
  * Certificate health: expired / expiring / not trusted / hostname mismatch.
- * All interpretations are direct observations of the handshake — high confidence.
+ * All interpretations are direct observations of the handshake - high confidence.
  */
 export const tlsCertificateRule: Rule = {
   id: "tls-certificate",
@@ -27,7 +27,7 @@ export const tlsCertificateRule: Rule = {
     const verification =
       "Re-run `dlos scan` after acting on the certificate. " + VERIFICATION_RESCAN;
 
-    // Expired takes precedence — an expired cert also fails chain validation,
+    // Expired takes precedence - an expired cert also fails chain validation,
     // and we do not want two findings for one root cause.
     if (cert.daysRemaining !== null && cert.daysRemaining < 0) {
       return [
@@ -42,7 +42,7 @@ export const tlsCertificateRule: Rule = {
             observation: `The certificate for ${d.host} expired on ${cert.validToIso?.slice(0, 10) ?? cert.validTo} (${Math.abs(cert.daysRemaining)} days ago).`,
             evidence: evidenceOf(ctx, "tls.certificate"),
             impact:
-              "Browsers and email servers reject the connection outright — visitors see a security warning, and API/integration clients may fail silently.",
+              "Browsers and email servers reject the connection outright - visitors see a security warning, and API/integration clients may fail silently.",
             confidence: "high",
             recommendation:
               "Renew the certificate now (e.g. re-run certbot or your CA's renewal flow) and deploy it, then verify the new expiry date appears.",
@@ -68,7 +68,7 @@ export const tlsCertificateRule: Rule = {
               "If it is not renewed in time, every visitor and client loses access with a security warning.",
             confidence: "high",
             recommendation:
-              "Renew the certificate (automate this — e.g. certbot timers or your hosting provider's auto-renewal) and confirm the new validity period.",
+              "Renew the certificate (automate this - e.g. certbot timers or your hosting provider's auto-renewal) and confirm the new validity period.",
             verification,
           },
         }),
@@ -104,7 +104,7 @@ export const tlsCertificateRule: Rule = {
         ? ([
             "critical",
             "TLS certificate does not match the domain",
-            "The certificate was issued for a different name — browsers reject the connection, and a mismatch like this can also indicate traffic interception.",
+            "The certificate was issued for a different name - browsers reject the connection, and a mismatch like this can also indicate traffic interception.",
             "Issue a certificate that includes this exact hostname (check the SANs), deploy it, and make sure the server presents it.",
           ] as const)
         : err.includes("self-signed")
@@ -174,7 +174,7 @@ export const tlsProtocolRule: Rule = {
           recommendation:
             "Enable TLS 1.2 and 1.3 on the server and disable TLS 1.0/1.1 (and SSL).",
           verification:
-            "Re-run `dlos scan` — the 'Modern TLS protocol' check should appear under 'verified'. " +
+            "Re-run `dlos scan` - the 'Modern TLS protocol' check should appear under 'verified'. " +
             VERIFICATION_RESCAN,
         },
       }),

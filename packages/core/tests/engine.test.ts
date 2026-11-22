@@ -127,7 +127,7 @@ beforeEach(() => {
   asset = storage.getAssetByIdentifier("example.com")!;
 });
 
-describe("runScan — the closed loop", () => {
+describe("runScan - the closed loop", () => {
   it("walks the full lifecycle: new → recurring → resolved → regressed", async () => {
     const r1 = await runScan(makeDeps(), asset);
     expect(r1.findings).toHaveLength(1);

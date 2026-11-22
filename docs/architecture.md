@@ -2,7 +2,7 @@
 
 One shared security engine, two interfaces (CLI today, desktop later), one local
 database. The engine is a dependency-injected core so collectors, rules, storage and
-the clock are all swappable — which is also what makes every scan testable offline.
+the clock are all swappable - which is also what makes every scan testable offline.
 
 ```
 ┌─────────────────────┐   ┌──────────────────┐
@@ -36,12 +36,12 @@ the clock are all swappable — which is also what makes every scan testable off
 
 ## The scan pipeline (`runScan` in `packages/core/src/engine.ts`)
 
-1. **Collect** — each collector runs against the asset with its own timeout
+1. **Collect** - each collector runs against the asset with its own timeout
    (`AbortSignal.timeout`). A collector crash never fails the scan; it records
    `erroredChecks`. Results are stored as immutable **observations** (the evidence layer).
-2. **Interpret** — deterministic rules read observations and return finding drafts.
+2. **Interpret** - deterministic rules read observations and return finding drafts.
    Rules are pure: same observation in, same finding out. No network, no randomness.
-3. **Diff (change detection)** — each draft is fingerprinted as
+3. **Diff (change detection)** - each draft is fingerprinted as
    `sha256(ruleId | assetId | subject)` and compared to tracked findings
    (`open` / `in_progress` / `accepted`):
    - fingerprint already tracked → **recurring** (evidence refreshed, `firstSeen` preserved)
@@ -49,9 +49,9 @@ the clock are all swappable — which is also what makes every scan testable off
    - fingerprint never seen → **new**
    - tracked finding *not* re-observed this scan → **resolved** (this is fix verification)
    - `accepted` findings stay accepted when they disappear; they still update `lastSeen` when they recur
-4. **Verify** — healthy checks are turned into human-readable **pass results**
+4. **Verify** - healthy checks are turned into human-readable **pass results**
    (`passCatalog`) so reports show what was checked and confirmed, not just failures.
-5. **Summarize** — per-scan summary (severities, pass/error counts) is stored, and the
+5. **Summarize** - per-scan summary (severities, pass/error counts) is stored, and the
    asset's `lastCheckedAt` is updated.
 
 Every lifecycle change appends a row to `finding_events`, giving an auditable
@@ -94,7 +94,7 @@ and no AI involvement in evidence generation.
 
 ## Testing strategy
 
-- Collectors and the engine take injected `fetch` / `DomainResolver` / `clock` — tests never touch the network.
+- Collectors and the engine take injected `fetch` / `DomainResolver` / `clock` - tests never touch the network.
 - Rules are exercised against JSON fixtures under `packages/rules/tests/fixtures/`,
   including false-positive edge cases (lookup errors, `ENODATA`, inconclusive results).
 - Storage is tested against real temporary SQLite files (migrations, cascades, constraints).

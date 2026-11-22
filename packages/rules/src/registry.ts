@@ -20,7 +20,7 @@ import { caaPresentRule } from "./dns";
 import { securityTxtRule } from "./web";
 import { cookieSecureRule, cookieHttpOnlyRule, cookieSameSiteRule } from "./cookies";
 
-/** The deterministic rule set — every rule is pure and fixture-testable. */
+/** The deterministic rule set - every rule is pure and fixture-testable. */
 export const allRules: Rule[] = [
   httpsRedirectRule,
   httpsReachableRule,

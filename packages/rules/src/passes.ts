@@ -13,7 +13,7 @@ import type {
 import { parseDmarc, parseSpf } from "./parsers";
 
 /**
- * Pass descriptions — how healthy checks appear in reports.
+ * Pass descriptions - how healthy checks appear in reports.
  * Same principle as findings: show the evidence ("what was verified"),
  * not just a green tick.
  */

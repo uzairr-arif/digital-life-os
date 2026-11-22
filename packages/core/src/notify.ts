@@ -14,7 +14,7 @@ export interface DigestEntry {
 
 /**
  * Change digest for a scan: the findings the user should hear about.
- * Recurring findings are NOT notified — nagging kills trust. Only genuinely
+ * Recurring findings are NOT notified - nagging kills trust. Only genuinely
  * new or regressed issues surface.
  */
 export function buildDigest(result: ScanResult): DigestEntry[] {

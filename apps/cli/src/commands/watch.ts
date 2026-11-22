@@ -65,7 +65,7 @@ export function registerWatchCommand(program: Command): void {
       const runPass = async (): Promise<void> => {
         const assets = storage.listAssets().filter((a) => a.active);
         if (assets.length === 0) {
-          note("no active assets to scan — add one: dlos asset add example.com --confirm");
+          note("no active assets to scan - add one: dlos asset add example.com --confirm");
           return;
         }
         const deps = scanDeps(storage, timeoutMs);

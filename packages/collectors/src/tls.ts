@@ -47,7 +47,7 @@ export type TlsObservation = {
  * `rejectUnauthorized: false` is deliberate: we want to *observe* invalid
  * certificates and report them, not abort the check.
  */
-/** Cert DN fields can be string or string[] (multi-value RDNs) — take the first. */
+/** Cert DN fields can be string or string[] (multi-value RDNs) - take the first. */
 function firstDnValue(v: string | string[] | undefined): string | null {
   if (v === undefined) return null;
   return Array.isArray(v) ? (v[0] ?? null) : v;

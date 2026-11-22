@@ -36,14 +36,14 @@ export function registerScanCommand(program: Command): void {
         const found = storage.getAssetByIdentifier(identifier);
         if (!found) {
           return fail(
-            `"${identifier}" is not in the inventory — add it first: dlos asset add ${identifier} --confirm`,
+            `"${identifier}" is not in the inventory - add it first: dlos asset add ${identifier} --confirm`,
           );
         }
         assets = [found];
       } else {
         assets = storage.listAssets().filter((a) => a.active);
         if (assets.length === 0) {
-          note("no active assets to scan — add one first: dlos asset add example.com --confirm");
+          note("no active assets to scan - add one first: dlos asset add example.com --confirm");
           return;
         }
       }
@@ -63,7 +63,7 @@ export function registerScanCommand(program: Command): void {
       }
 
       if (shouldFail) {
-        note(`open findings at or above "${opts.failOn}" severity — exiting 1 (CI-friendly)`);
+        note(`open findings at or above "${opts.failOn}" severity - exiting 1 (CI-friendly)`);
         process.exitCode = 1;
       }
     });

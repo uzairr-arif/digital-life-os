@@ -5,7 +5,7 @@ import { evidenceOf, VERIFICATION_RESCAN } from "./lib";
 
 /**
  * Returns the headers observation, or null when the check could not run.
- * null means INCONCLUSIVE — rules must stay silent, never flag "missing".
+ * null means INCONCLUSIVE - rules must stay silent, never flag "missing".
  */
 function headersData(ctx: RuleContext): HeadersObservation | null {
   const obs = firstObservation(ctx, "http.headers");
@@ -115,7 +115,7 @@ export const hstsRule: Rule = {
           actionability: "planned",
           title: `HSTS max-age is short (${maxAge}s)`,
           detail: {
-            observation: `HSTS is enabled but max-age is only ${maxAge} seconds (recommended: at least 15552000 — 180 days).`,
+            observation: `HSTS is enabled but max-age is only ${maxAge} seconds (recommended: at least 15552000 - 180 days).`,
             evidence: evidenceOf(ctx, "http.headers"),
             impact: "The downgrade protection window is too short to be durable for most visitors.",
             confidence: "high",
@@ -205,7 +205,7 @@ export const xFrameOptionsRule = makeHeaderRule({
   impact:
     "The page can be embedded in iframes on other sites (clickjacking risk).",
   recommendation:
-    "Send `X-Frame-Options: DENY` (or SAMEORIGIN) — or use `frame-ancestors 'none'` in CSP, which supersedes it.",
+    "Send `X-Frame-Options: DENY` (or SAMEORIGIN) - or use `frame-ancestors 'none'` in CSP, which supersedes it.",
   downgrade: (ctx) => {
     const csp = headerValue(ctx, "content-security-policy");
     if (csp !== null && /frame-ancestors/i.test(csp)) {

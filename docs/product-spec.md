@@ -1,4 +1,4 @@
-# Digital Life OS — product spec (condensed)
+# Digital Life OS - product spec (condensed)
 
 > The full product thesis this implementation is built from: a personal security
 > system that helps people understand their digital risks, decide what matters,
@@ -36,23 +36,23 @@ A security tool that confidently produces false alarms loses trust immediately.
 
 ## Stack
 
-TypeScript · pnpm workspaces · Node ≥ 22.13 · SQLite (node:sqlite — zero native
+TypeScript · pnpm workspaces · Node ≥ 22.13 · SQLite (node:sqlite - zero native
 dependencies) · CLI via commander · vitest · tsup for the distributable build.
 Desktop app later: React + Electron (sandboxed renderer, narrow validated bridge);
 Tauri is a reasonable alternative.
 
 ## Roadmap
 
-- **Phase 1 — Core engine (this MVP):** domain inventory, deterministic checks,
+- **Phase 1 - Core engine (this MVP):** domain inventory, deterministic checks,
   evidence-backed findings, remediation tracking, CLI + reports, local history.
-- **Phase 2 — Daily usefulness:** scheduled rechecks and change notifications;
+- **Phase 2 - Daily usefulness:** scheduled rechecks and change notifications;
   Windows/Linux device posture; project profiles; guided remediation.
-- **Phase 3 — Personal mode:** simplified explanations; browser extension for the
+- **Phase 3 - Personal mode:** simplified explanations; browser extension for the
   current page; account-security checklist; optional breach notifications via
   reputable providers.
-- **Phase 4 — Security observatory:** visual asset graph; authorized home-network
+- **Phase 4 - Security observatory:** visual asset graph; authorized home-network
   inventory; historical trends; signed/exportable reports; plugin architecture.
-- **Phase 5 — Ecosystem:** optional self-hosted monitoring; family/multi-device;
+- **Phase 5 - Ecosystem:** optional self-hosted monitoring; family/multi-device;
   team workspaces; paid capabilities only if demand supports them.
 
 ## What NOT to build yet

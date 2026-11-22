@@ -29,7 +29,7 @@ export function sevLabel(severity: Finding["severity"]): string {
 }
 
 export function fmtDate(iso: string | undefined): string {
-  if (!iso) return "—";
+  if (!iso) return "-";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   const pad = (n: number): string => String(n).padStart(2, "0");
@@ -54,7 +54,7 @@ export function renderReport(report: ReportJson): string {
   const lines: string[] = [];
   const { asset, scan, summary, findings, passes, erroredChecks } = report;
 
-  lines.push(chalk.bold(`dlos report — ${asset.identifier}`));
+  lines.push(chalk.bold(`dlos report - ${asset.identifier}`));
   lines.push(
     chalk.gray(
       `scan ${scan.id.slice(0, 8)} · ${fmtDate(scan.finishedAt ?? scan.startedAt)} · ${scan.status}`,
@@ -74,7 +74,7 @@ export function renderReport(report: ReportJson): string {
       openTotal === 0
         ? chalk.green.bold("No open findings.") +
             (summary.acceptedCount > 0 ? chalk.gray(` (${summary.acceptedCount} accepted)`) : "")
-        : `${chalk.bold(String(openTotal))} open finding${openTotal === 1 ? "" : "s"} — ${counts}` +
+        : `${chalk.bold(String(openTotal))} open finding${openTotal === 1 ? "" : "s"} - ${counts}` +
             (summary.acceptedCount > 0 ? chalk.gray(` · ${summary.acceptedCount} accepted`) : ""),
     );
     lines.push(
@@ -120,7 +120,7 @@ export function renderReport(report: ReportJson): string {
   if (passes.length > 0) {
     lines.push(chalk.bold("Verified (checks that passed)"));
     for (const p of passes) {
-      lines.push(`  ${chalk.green("✔")} ${chalk.bold(p.title)} — ${chalk.gray(truncate(p.text, 110))}`);
+      lines.push(`  ${chalk.green("✔")} ${chalk.bold(p.title)} - ${chalk.gray(truncate(p.text, 110))}`);
     }
     lines.push("");
   }
@@ -128,7 +128,7 @@ export function renderReport(report: ReportJson): string {
   if (erroredChecks.length > 0) {
     lines.push(chalk.bold("Checks that could not run"));
     for (const e of erroredChecks) {
-      lines.push(`  ${chalk.yellow("⚠")} ${chalk.bold(e.checkId)} — ${chalk.gray(truncate(e.error, 110))}`);
+      lines.push(`  ${chalk.yellow("⚠")} ${chalk.bold(e.checkId)} - ${chalk.gray(truncate(e.error, 110))}`);
     }
     lines.push("");
   }
@@ -141,7 +141,7 @@ export function renderReport(report: ReportJson): string {
 export function renderScansTable(scans: Scan[]): string {
   const lines: string[] = [chalk.bold("Scans"), ""];
   if (scans.length === 0) {
-    lines.push(chalk.gray("  no scans yet — run `dlos scan <domain>`"));
+    lines.push(chalk.gray("  no scans yet - run `dlos scan <domain>`"));
     return lines.join("\n");
   }
   for (const s of scans) {
@@ -168,7 +168,7 @@ export function renderEvents(events: FindingEvent[], titles: Map<string, string>
   for (const e of events) {
     const label = CHANGE_LABEL[e.event] ?? e.event;
     const title = titles.get(e.findingId) ?? e.findingId.slice(0, 8);
-    const detail = e.detail ? chalk.gray(` — ${truncate(e.detail, 90)}`) : "";
+    const detail = e.detail ? chalk.gray(` - ${truncate(e.detail, 90)}`) : "";
     lines.push(`  ${chalk.gray(fmtDate(e.at))}  ${label.padEnd(11)} ${truncate(title, 70)}${detail}`);
   }
   return lines.join("\n");
@@ -201,7 +201,7 @@ export function renderFindingDetail(f: Finding, events: FindingEvent[]): string 
   lines.push(`${sevLabel(f.severity)}  ${chalk.bold(f.title)}`);
   lines.push(chalk.gray(`finding ${f.id}`));
   lines.push("");
-  lines.push(`  ${chalk.bold("Status:  ")} ${f.status}${f.statusNote ? chalk.gray(` — ${f.statusNote}`) : ""}`);
+  lines.push(`  ${chalk.bold("Status:  ")} ${f.status}${f.statusNote ? chalk.gray(` - ${f.statusNote}`) : ""}`);
   lines.push(`  ${chalk.bold("Rule:    ")} ${f.ruleId} · check ${f.checkId} · score ${f.priorityScore}`);
   lines.push(`  ${chalk.bold("First:   ")} ${fmtDate(f.firstSeenAt)}`);
   lines.push(`  ${chalk.bold("Last:    ")} ${fmtDate(f.lastSeenAt)}${f.resolvedAt ? chalk.gray(` · resolved ${fmtDate(f.resolvedAt)}`) : ""}`);
@@ -218,7 +218,7 @@ export function renderFindingDetail(f: Finding, events: FindingEvent[]): string 
     lines.push(chalk.bold("History"));
     for (const e of events) {
       const label = CHANGE_LABEL[e.event] ?? e.event;
-      lines.push(`  ${chalk.gray(fmtDate(e.at))}  ${label}${e.detail ? chalk.gray(` — ${e.detail}`) : ""}`);
+      lines.push(`  ${chalk.gray(fmtDate(e.at))}  ${label}${e.detail ? chalk.gray(` - ${e.detail}`) : ""}`);
     }
   }
   return lines.join("\n");
@@ -229,7 +229,7 @@ export function renderFindingDetail(f: Finding, events: FindingEvent[]): string 
 export function renderAssetsTable(assets: Asset[], openCounts: Map<string, number>): string {
   const lines: string[] = [chalk.bold("Assets"), ""];
   if (assets.length === 0) {
-    lines.push(chalk.gray("  none yet — add one with: dlos asset add example.com --confirm"));
+    lines.push(chalk.gray("  none yet - add one with: dlos asset add example.com --confirm"));
     return lines.join("\n");
   }
   for (const a of assets) {

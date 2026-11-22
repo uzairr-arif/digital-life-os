@@ -181,7 +181,7 @@ export async function runScan(deps: ScanDeps, asset: Asset): Promise<ScanResult>
 
       const prior = storage.findingByFingerprint(asset.id, fingerprint);
       if (prior && prior.status === "resolved") {
-        // A resolved finding came back — that is a regression worth shouting about.
+        // A resolved finding came back - that is a regression worth shouting about.
         const reopened: Finding = {
           ...prior,
           severity: d.severity,

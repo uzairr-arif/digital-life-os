@@ -38,7 +38,7 @@ export interface FindingsFilter {
 }
 
 /**
- * Local persistence port. Implementations are synchronous (SQLite) —
+ * Local persistence port. Implementations are synchronous (SQLite) -
  * the engine's asynchrony comes from the network, not the database.
  */
 export interface Storage {

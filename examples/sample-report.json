@@ -73,7 +73,7 @@
         "impact": "Visitors who type the bare domain (or follow old http:// links) reach an unencrypted version of the site; anyone on the network path can read or alter that traffic.",
         "confidence": "high",
         "recommendation": "Configure the web server to answer http:// with a 301 (or 308) redirect to the https:// URL, and keep the redirect permanent.",
-        "verification": "Open http://<domain>/ in a private window — it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
+        "verification": "Open http://<domain>/ in a private window - it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
       },
       "firstSeenAt": "2026-11-01T16:55:32.366Z",
       "lastSeenAt": "2026-11-01T16:55:35.163Z",
@@ -220,7 +220,7 @@
         },
         "impact": "The page can be embedded in iframes on other sites (clickjacking risk).",
         "confidence": "high",
-        "recommendation": "Send `X-Frame-Options: DENY` (or SAMEORIGIN) — or use `frame-ancestors 'none'` in CSP, which supersedes it.",
+        "recommendation": "Send `X-Frame-Options: DENY` (or SAMEORIGIN) - or use `frame-ancestors 'none'` in CSP, which supersedes it.",
         "verification": "Add the header in the web server / hosting configuration, reload, then re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."
       },
       "firstSeenAt": "2026-11-01T16:55:32.400Z",
@@ -321,7 +321,7 @@
           },
           "error": null
         },
-        "impact": "Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue — limiting the blast radius of CA compromise or mis-issuance.",
+        "impact": "Any certificate authority may issue certificates for this domain. With CAA, you name the CAs allowed to issue - limiting the blast radius of CA compromise or mis-issuance.",
         "confidence": "high",
         "recommendation": "Add a CAA record for CAs you use, e.g. `example.com. IN CAA 0 issue \"letsencrypt.org\"` (plus an `issuewild` entry if you use wildcard certificates).",
         "verification": "`dig CAA <domain> +short` should return the record; re-run `dlos scan`. The next `dlos scan` verifies the fix automatically and marks this finding resolved."

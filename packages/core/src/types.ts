@@ -5,7 +5,7 @@
  * evidence that produced it, why it matters, and how to verify a fix.
  */
 
-/** JSON-serializable values — every piece of stored evidence must fit this. */
+/** JSON-serializable values - every piece of stored evidence must fit this. */
 export type JsonValue =
   | string
   | number
@@ -105,7 +105,7 @@ export interface FindingDetail {
 export interface Finding {
   id: string;
   assetId: string;
-  /** Stable hash of (rule, asset, subject) — identifies the same issue across scans. */
+  /** Stable hash of (rule, asset, subject) - identifies the same issue across scans. */
   fingerprint: string;
   ruleId: string;
   checkId: string;
@@ -141,7 +141,7 @@ export interface FindingEvent {
   at: string;
 }
 
-/** A check that produced no finding — recorded so reports can show what was verified as healthy. */
+/** A check that produced no finding - recorded so reports can show what was verified as healthy. */
 export interface PassResult {
   checkId: string;
   title: string;

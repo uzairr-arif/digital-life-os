@@ -43,7 +43,7 @@ async function lookupTxtOrError(
 
 /**
  * Email-domain protections: SPF, DMARC, and DKIM (only where the user
- * configured selectors — DKIM selectors are unguessable by design).
+ * configured selectors - DKIM selectors are unguessable by design).
  */
 export const emailCollector: Collector = {
   id: "email",

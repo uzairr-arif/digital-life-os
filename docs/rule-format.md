@@ -25,7 +25,7 @@ import type { Rule } from "@dlos/core";
 import { draft, firstObservation } from "@dlos/core";
 
 export const hstsRule: Rule = {
-  id: "header-hsts",            // stable rule id — part of the finding fingerprint
+  id: "header-hsts",            // stable rule id - part of the finding fingerprint
   consumes: ["http.headers"],   // checkIds it reads
   evaluate(ctx) {
     const obs = firstObservation(ctx, "http.headers");
@@ -58,11 +58,11 @@ A finding's cross-scan identity is `sha256(ruleId | assetId | subject)`.
 Choose `subject` so the same *real-world issue* keeps the same fingerprint:
 use `"default"` for per-asset issues, a header name / selector / record type for
 per-target issues. If two rules could flag the same root cause (e.g. expired certificate
-and failed trust), guard so only one fires — see the expiry precedence in `tls.ts`.
+and failed trust), guard so only one fires - see the expiry precedence in `tls.ts`.
 
 ### Judgment conventions
 
-- **Lookup errors are not findings.** If DNS/fetch failed, the rule stays silent —
+- **Lookup errors are not findings.** If DNS/fetch failed, the rule stays silent -
   absence of evidence is not evidence of absence. (Tests assert this.)
 - **Inconclusive ≠ vulnerable.** Uncertain results get `info` severity and
   `confidence: low`, e.g. "HTTPS check could not be completed".
@@ -75,7 +75,7 @@ and failed trust), guard so only one fires — see the expiry precedence in `tls
 
 1. **Collector** (`packages/collectors`): implement `Collector`, return
    `ObservationDraft[]` with a stable `checkId`. Only store security-relevant,
-   redacted data — the header whitelist in `headers.ts` is the model.
+   redacted data - the header whitelist in `headers.ts` is the model.
 2. **Rules** (`packages/rules`): one rule file, exported from `index.ts` and
    registered in `registry.ts`. Add a pass description to `passes.ts` for the
    healthy case.

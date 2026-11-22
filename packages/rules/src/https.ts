@@ -40,7 +40,7 @@ export const httpsRedirectRule: Rule = {
           recommendation:
             "Configure the web server to answer http:// with a 301 (or 308) redirect to the https:// URL, and keep the redirect permanent.",
           verification:
-            "Open http://<domain>/ in a private window — it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. " +
+            "Open http://<domain>/ in a private window - it should land on https:// without warnings. Then re-run `dlos scan`: the redirect check should move to 'verified'. " +
             VERIFICATION_RESCAN,
         },
       }),
@@ -69,7 +69,7 @@ export const httpsReachableRule: Rule = {
             observation: `The HTTPS endpoint for ${ctx.asset.identifier} could not be verified: ${obs.error ?? "no result"}.`,
             evidence: evidenceOf(ctx, "http.https"),
             impact:
-              "Unknown — this is usually a network or connectivity limitation of the machine running the scan, not necessarily a problem with the site.",
+              "Unknown - this is usually a network or connectivity limitation of the machine running the scan, not necessarily a problem with the site.",
             confidence: "low",
             recommendation:
               "Re-run the scan from a network with access to the site. If the site genuinely has no HTTPS, set it up (e.g. via a certificate authority like Let's Encrypt).",

@@ -1,6 +1,6 @@
 /**
  * Pure parsers for email-protection records. Rules (and tests) interpret
- * raw DNS TXT evidence through these — no network access, no state.
+ * raw DNS TXT evidence through these - no network access, no state.
  */
 
 /** Join chunked TXT strings into one record text (DNS splits long TXT records). */

@@ -3,7 +3,7 @@ import { errorText } from "@dlos/core";
 import { countSetCookies, fetchWithTimeout } from "./httpx";
 
 /**
- * Header capture whitelist — this IS the redaction strategy.
+ * Header capture whitelist - this IS the redaction strategy.
  * Only security-relevant headers are stored; cookie values are never persisted
  * (only their count), so no session material can leak into the database or exports.
  */
@@ -19,7 +19,7 @@ export const CAPTURED_HEADERS = [
 ] as const;
 
 export type CookieFlags = {
-  /** Only flag PRESENCE is recorded — never cookie names, values or domains. */
+  /** Only flag PRESENCE is recorded - never cookie names, values or domains. */
   secure: boolean;
   httponly: boolean;
   samesite: boolean;

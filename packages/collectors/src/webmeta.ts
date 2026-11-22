@@ -13,7 +13,7 @@ export type SecurityTxtObservation = {
 };
 
 /**
- * security.txt (RFC 9116) — where researchers should report security issues.
+ * security.txt (RFC 9116) - where researchers should report security issues.
  * A plain GET; body is scanned for required FIELDS only, never stored verbatim.
  */
 export const securityTxtCollector: Collector = {

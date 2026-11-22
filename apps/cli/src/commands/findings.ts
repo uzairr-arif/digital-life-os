@@ -112,7 +112,7 @@ export function registerFindingsCommands(program: Command): void {
           id: crypto.randomUUID(),
           findingId: f.id,
           event: "status_changed",
-          detail: `${f.status} → ${status}${opts.note ? ` — ${opts.note}` : ""}`,
+          detail: `${f.status} → ${status}${opts.note ? ` - ${opts.note}` : ""}`,
           at,
         },
       ]);

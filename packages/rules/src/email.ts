@@ -16,7 +16,7 @@ function dmarcData(ctx: Parameters<Rule["evaluate"]>[0]): DmarcObservation | nul
   return obs.data as unknown as DmarcObservation;
 }
 
-/** Only records that actually declare SPF — a domain's other TXT records are irrelevant. */
+/** Only records that actually declare SPF - a domain's other TXT records are irrelevant. */
 export function spfRecordsOf(records: string[]): string[] {
   return records.filter((r) => /^v=spf1(\s|$)/i.test(r.trim()));
 }
@@ -26,7 +26,7 @@ export function dmarcRecordsOf(records: string[]): string[] {
   return records.filter((r) => /^v=DMARC1(\s|;|$)/i.test(r.trim()));
 }
 
-/** Missing or duplicated SPF records — the baseline of domain email protection. */
+/** Missing or duplicated SPF records - the baseline of domain email protection. */
 export const spfPresentRule: Rule = {
   id: "spf-present",
   consumes: ["email.spf"],
@@ -73,7 +73,7 @@ export const spfPresentRule: Rule = {
             observation: `${spfRecords.length} \`v=spf1\` records were found for ${ctx.asset.identifier}. RFC 7208 allows only one.`,
             evidence: evidenceOf(ctx, "email.spf"),
             impact:
-              "Receivers must treat multiple SPF records as a permanent error — your legitimate mail may be rejected or spam-foldered, and the policy in force is undefined.",
+              "Receivers must treat multiple SPF records as a permanent error - your legitimate mail may be rejected or spam-foldered, and the policy in force is undefined.",
             confidence: "high",
             recommendation: "Merge the records into a single `v=spf1` record and delete the extra DNS entries.",
             verification: "Confirm only one SPF record remains, then re-run `dlos scan`. " + VERIFICATION_RESCAN,
@@ -110,7 +110,7 @@ export const spfAllQualifierRule: Rule = {
           detail: {
             observation: `The SPF record ends with \`+all\`, which authorises every mail server on the internet. Record: ${parsed.raw}`,
             evidence: evidenceOf(ctx, "email.spf"),
-            impact: "SPF provides no protection — forged mail from this domain will pass SPF checks at recipients.",
+            impact: "SPF provides no protection - forged mail from this domain will pass SPF checks at recipients.",
             confidence: "high",
             recommendation: "Replace `+all` with `-all` after confirming your sending sources are listed.",
             verification: "Update the record and re-run `dlos scan`. " + VERIFICATION_RESCAN,
@@ -151,7 +151,7 @@ export const spfAllQualifierRule: Rule = {
             observation: `The SPF record ends with \`~all\`: unlisted servers are marked suspicious but still delivered. Record: ${parsed.raw}`,
             evidence: evidenceOf(ctx, "email.spf"),
             impact:
-              "This is a common, acceptable staging policy — but on its own it does not stop spoofing; it only feeds spam scoring.",
+              "This is a common, acceptable staging policy - but on its own it does not stop spoofing; it only feeds spam scoring.",
             confidence: "high",
             recommendation:
               "Once monitoring (e.g. DMARC rua reports) shows no legitimate source is missing, tighten to `-all`.",
@@ -192,14 +192,14 @@ export const spfLookupLimitRule: Rule = {
           confidence: "medium",
           recommendation:
             "Reduce lookups: remove unused includes, replace `a`/`mx` with IP ranges where stable, or use your provider's dedicated include.",
-          verification: "Re-run `dlos scan` — the lookup count is recomputed from the published record.",
+          verification: "Re-run `dlos scan` - the lookup count is recomputed from the published record.",
         },
       }),
     ];
   },
 };
 
-/** Missing / duplicated / policy-less DMARC — where domain spoofing actually gets stopped. */
+/** Missing / duplicated / policy-less DMARC - where domain spoofing actually gets stopped. */
 export const dmarcPresentRule: Rule = {
   id: "dmarc-present",
   consumes: ["email.dmarc"],
@@ -221,7 +221,7 @@ export const dmarcPresentRule: Rule = {
             observation: `The domain ${ctx.asset.identifier} publishes no \`v=DMARC1\` record at \`_dmarc.${ctx.asset.identifier}\`.`,
             evidence: evidenceOf(ctx, "email.dmarc"),
             impact:
-              "Without DMARC, receivers get no instruction on what to do with mail that fails SPF/DKIM — direct spoofing of this domain usually just works.",
+              "Without DMARC, receivers get no instruction on what to do with mail that fails SPF/DKIM - direct spoofing of this domain usually just works.",
             confidence: "high",
             recommendation:
               "Publish a starting record at `_dmarc.<domain>`: `v=DMARC1; p=none; rua=mailto:dmarc-reports@<domain>` and collect reports first.",
@@ -266,7 +266,7 @@ export const dmarcPresentRule: Rule = {
           detail: {
             observation: `A DMARC record exists but specifies no \`p=\` policy. Record: ${parsed.raw}`,
             evidence: evidenceOf(ctx, "email.dmarc"),
-            impact: "Without `p=`, the record is malformed for enforcement purposes — receivers cannot apply it.",
+            impact: "Without `p=`, the record is malformed for enforcement purposes - receivers cannot apply it.",
             confidence: "high",
             recommendation: "Add `p=none` to start (with `rua=` reporting), then tighten over time.",
             verification: "Update the record and re-run `dlos scan`. " + VERIFICATION_RESCAN,
@@ -307,12 +307,12 @@ export const dmarcPolicyRule: Rule = {
           observation: `The published DMARC record uses \`p=none\` (monitoring only). Record: ${parsed.raw}.${monitoring}`,
           evidence: evidenceOf(ctx, "email.dmarc"),
           impact:
-            "The record does not prove spoofing has occurred — it only means receivers are told to take no action on failures, so direct spoofing of this domain still succeeds.",
+            "The record does not prove spoofing has occurred - it only means receivers are told to take no action on failures, so direct spoofing of this domain still succeeds.",
           confidence: "high",
           recommendation:
             "Review the rua reports to inventory legitimate sending sources, then move stepwise to `p=quarantine` and finally `p=reject` (add `sp=` for subdomains if needed).",
           verification:
-            "Update the record; re-run `dlos scan` — p=quarantine/p=reject appears under 'verified'. " + VERIFICATION_RESCAN,
+            "Update the record; re-run `dlos scan` - p=quarantine/p=reject appears under 'verified'. " + VERIFICATION_RESCAN,
         },
       }),
     ];

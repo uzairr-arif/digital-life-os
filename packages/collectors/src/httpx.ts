@@ -44,7 +44,7 @@ export async function fetchWithTimeout(
 
 export { errorText };
 
-/** Count-only access to Set-Cookie — cookie VALUES must never be stored. */
+/** Count-only access to Set-Cookie - cookie VALUES must never be stored. */
 export function countSetCookies(res: Response): number {
   try {
     const anyHeaders = res.headers as Headers & { getSetCookie?: () => string[] };

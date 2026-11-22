@@ -14,12 +14,12 @@ cd digital-life-os
 pnpm install
 
 pnpm typecheck   # strict TypeScript across the workspace
-pnpm test        # vitest — everything runs offline
+pnpm test        # vitest - everything runs offline
 pnpm build       # bundles the dlos CLI
 pnpm dlos --help # run the CLI from source
 ```
 
-The engine never touches the network in tests — collectors, fetch, DNS and the
+The engine never touches the network in tests - collectors, fetch, DNS and the
 clock are injected. If your change needs new network behavior, add it behind a
 fake in tests.
 
@@ -39,21 +39,21 @@ apps/cli             the dlos command line
 ## Adding a security rule
 
 This is the highest-value contribution path. Rules are pure functions from
-observations to findings — no network, no randomness. Follow
+observations to findings - no network, no randomness. Follow
 [docs/rule-format.md](docs/rule-format.md) and the checklist there; in short:
 
 1. Add a collector (or reuse one) and a stable `checkId`.
 2. Implement the rule with the full finding contract (observation, evidence,
    impact, confidence, recommendation, verification).
 3. Add a pass description so healthy checks appear as verified evidence.
-4. Add JSON fixtures — **including a false-positive case** (lookup error,
+4. Add JSON fixtures - **including a false-positive case** (lookup error,
    timeout, empty result). A rule that can fire on inconclusive data will be
    rejected.
 
 ## Commit and PR style
 
 - [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`,
-  `docs:`, `test:`, `chore:`, `ci:`, `refactor:` — scope optional, e.g.
+  `docs:`, `test:`, `chore:`, `ci:`, `refactor:` - scope optional, e.g.
   `feat(rules): detect missing security.txt`.
 - Keep PRs focused; one rule or one concern per PR is a good size.
 - PR checklist: tests pass, new rules ship with fixtures + false-positive
@@ -62,7 +62,7 @@ observations to findings — no network, no randomness. Follow
 ## Reporting bugs
 
 Open a GitHub issue using the bug template. **Redact domain names, IPs and
-report contents** — your scan data is yours, and issue readers don't need it.
+report contents** - your scan data is yours, and issue readers don't need it.
 
 ## Reporting security issues
 

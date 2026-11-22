@@ -223,7 +223,7 @@ describe("dns caa rule", () => {
 });
 
 describe("false-positive guards (regression)", () => {
-  it("header rules stay SILENT when the check errored — inconclusive is never 'missing'", () => {
+  it("header rules stay SILENT when the check errored - inconclusive is never 'missing'", () => {
     const hits = runAll("http.headers", undefined, "TimeoutError: The operation was aborted due to timeout");
     expect(hits).toEqual([]);
   });
