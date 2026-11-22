@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo.svg" width="92" alt="Digital Life OS logo">
+<img src="assets/mark.svg" width="110" alt="Digital Life OS mark">
 
 # digital life os
 
@@ -23,10 +23,10 @@
 Most security tools answer one question: *"What did this scan find?"*
 Digital Life OS answers four connected questions:
 
-1. **What do I have?** — a user-controlled inventory of your domains and projects
-2. **What changed?** — new, recurring, resolved and regressed findings between scans
-3. **What should I do first?** — transparent, explainable prioritization
-4. **Did the fix work?** — every finding states *how to verify it*, and the next scan verifies it for you
+1. **What do I have?** - a user-controlled inventory of your domains and projects
+2. **What changed?** - new, recurring, resolved and regressed findings between scans
+3. **What should I do first?** - transparent, explainable prioritization
+4. **Did the fix work?** - every finding states *how to verify it*, and the next scan verifies it for you
 
 The loop is the product:
 
@@ -34,7 +34,7 @@ The loop is the product:
 Discover ──▶ Understand ──▶ Act & verify ──▶ Build history
 ```
 
-Status: **v0.1.0 (CLI-first alpha)** — deterministic checks for domains. The desktop app
+Status: **v0.1.0 (CLI-first alpha)** - deterministic checks for domains. The desktop app
 and personal mode come later ([roadmap](ROADMAP.md)).
 
 ## What it looks like
@@ -44,7 +44,7 @@ Real output from a scan:
 ```text
 $ dlos scan example.com
 
-1 high finding — 2 medium, 3 low, 2 info
+1 high finding - 2 medium, 3 low, 2 info
 6 checks verified · 8 ran · 0 errored
 
 Findings (by priority)
@@ -56,9 +56,9 @@ Findings (by priority)
     Verify:   Re-run dlos scan; the check moves to 'verified' when fixed.
 
 Verified (checks that passed)
-  ✔ HTTPS redirect verified — HTTP 301 → https://example.com/
-  ✔ TLS certificate trusted — issuer: SSL Corporation · expires 2026-12-25 (54 days)
-  ✔ DMARC enforcement enabled — p=reject
+  ✔ HTTPS redirect verified - HTTP 301 → https://example.com/
+  ✔ TLS certificate trusted - issuer: SSL Corporation · expires 2026-12-25 (54 days)
+  ✔ DMARC enforcement enabled - p=reject
 ```
 
 After you fix a finding, the next scan marks it **resolved** and records the before/after
@@ -66,14 +66,14 @@ evidence. That is worth more than a score of 82/100.
 
 ## What it checks (and how safely)
 
-All checks are **passive, read-only and rate-limit-friendly** — no brute force, no
+All checks are **passive, read-only and rate-limit-friendly** - no brute force, no
 exploitation, no intrusive port scanning:
 
 | Area | Checks |
 | --- | --- |
 | HTTPS | HTTP→HTTPS redirect, HTTPS reachability |
 | TLS | certificate expiry, trust/hostname validation, protocol version |
-| HTTP headers | HSTS, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, cookie security flags (Secure/HttpOnly/SameSite — flags only, never names or values) |
+| HTTP headers | HSTS, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, cookie security flags (Secure/HttpOnly/SameSite - flags only, never names or values) |
 | Email domain | SPF (presence, `all` qualifier, 10-lookup limit), DMARC (presence, `p=` policy), DKIM (only for selectors you configure) |
 | DNS | record inventory (A/AAAA/MX/NS/TXT/CNAME), CAA policy |
 | Web | security.txt (RFC 9116): presence and required fields |
@@ -98,7 +98,7 @@ pnpm dlos scan example.com
 # 3. See what to fix, ranked by transparent priority
 pnpm dlos findings
 
-# 4. Fix something, then re-scan — the finding flips to "resolved" with before/after evidence
+# 4. Fix something, then re-scan - the finding flips to "resolved" with before/after evidence
 pnpm dlos scan example.com
 
 # 5. See what changed over time
@@ -123,26 +123,34 @@ dlos finding status <id> <open|in_progress|accepted|resolved> [--note ...]
 dlos history <domain> [--limit n] [--json]
 dlos report <domain> [--format text|json] [--out file]
 dlos watch [--every 30m|6h|1d] [--webhook url] [--min-severity s] [--once]
+dlos ui [--port n] [--no-open]
 ```
 
 **Scheduled rechecks**: `dlos watch` re-scans every active asset on an interval and
 notifies only on *new* or *regressed* findings (recurring issues never nag), in the
 console and via an optional webhook. Under cron/Task Scheduler use `dlos watch --once`.
 
+**Local dashboard**: `dlos ui` serves a visual dashboard on 127.0.0.1 only -
+asset overview, findings with full evidence, change history, and an interactive
+relationship graph (assets → checks → findings). Scans can be triggered from the
+UI; the only mutating endpoint is gated by a per-boot token.
+
 **Exit codes** (`scan` is CI-friendly): `0` = clean or below the threshold,
 `1` = open findings at/above `--fail-on` (default `high`), `2` = operational error.
-JSON output (`--json`, `--format json`) prints valid JSON and nothing else — logs go to stderr.
+JSON output (`--json`, `--format json`) prints valid JSON and nothing else - logs go to stderr.
 
 ## Repository layout
 
 ```
 digital-life-os/
 ├── apps/
-│   └── cli/              # dlos — the terminal interface
+│   ├── cli/              # dlos - the terminal interface
+│   └── desktop/          # Electron shell (sandboxed renderer over the dashboard)
 ├── packages/
 │   ├── core/             # types, scan orchestration, change detection, risk ranking
 │   ├── collectors/       # DNS, TLS, HTTP, email collectors (injectable network I/O)
 │   ├── rules/            # deterministic rules + "verified" pass descriptions
+│   ├── server/           # local dashboard server (127.0.0.1) + relationship graph
 │   ├── storage/          # SQLite (node:sqlite), migrations, cascade deletes
 │   └── reports/          # JSON + human-readable rendering
 ├── site/                 # landing page (GitHub Pages)
@@ -150,7 +158,7 @@ digital-life-os/
 └── examples/             # sample reports
 ```
 
-One shared engine, two future interfaces (CLI today, desktop later) — the CLI and the
+One shared engine, two future interfaces (CLI today, desktop later) - the CLI and the
 desktop app will never be separate products.
 
 ## Development
@@ -158,7 +166,7 @@ desktop app will never be separate products.
 ```bash
 pnpm install
 pnpm typecheck   # strict TypeScript across the workspace
-pnpm test        # 66 offline tests — no network required
+pnpm test        # 76 offline tests - no network required
 pnpm build       # bundle the dlos CLI to apps/cli/dist
 pnpm dlos        # run the CLI from source
 ```
@@ -169,10 +177,10 @@ clock are injected, and rules are exercised against JSON evidence fixtures.
 ## Contributing
 
 The highest-value contribution is a new rule with fixtures (including a
-false-positive case). Rules are pure functions over observations — no network, no
+false-positive case). Rules are pure functions over observations - no network, no
 randomness. Start here:
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) — setup, commit style, PR checklist
+- [CONTRIBUTING.md](CONTRIBUTING.md) - setup, commit style, PR checklist
 - Security issues: [SECURITY.md](SECURITY.md) (private disclosure, please)
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
@@ -191,8 +199,8 @@ export const hstsRule: Rule = {
 
 ## Documentation
 
-- [Roadmap](ROADMAP.md) — what shipped, what's next
-- [Changelog](CHANGELOG.md) — every release, Keep-a-Changelog format
+- [Roadmap](ROADMAP.md) - what shipped, what's next
+- [Changelog](CHANGELOG.md) - every release, Keep-a-Changelog format
 - [Architecture & data model](docs/architecture.md)
 - [Rule format & finding schema](docs/rule-format.md)
 - [Security & privacy model](docs/security-model.md)
@@ -200,9 +208,9 @@ export const hstsRule: Rule = {
 
 ## Known limitations (MVP)
 
-- Domain/web checks only — device posture, account safety and personal mode are future phases
+- Domain/web checks only - device posture, account safety and personal mode are future phases
 - DKIM is checked only when you provide selectors (they are unguessable by design)
-- `~all`/`p=none` are flagged as informational/low — they are common staging policies, not emergencies
+- `~all`/`p=none` are flagged as informational/low - they are common staging policies, not emergencies
 - Findings reflect configuration, not compromise: an "issue" is evidence of exposure, never proof of an attack
 
 ## License

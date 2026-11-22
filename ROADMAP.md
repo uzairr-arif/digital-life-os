@@ -8,7 +8,7 @@ act & verify → history) rather than adding a disconnected tool.
 
 ## ✅ Shipped
 
-### v0.1.0 — 2026-10-31 · the core loop, CLI-first
+### v0.1.0 - 2026-10-31 · the core loop, CLI-first
 
 - Asset registry with explicit scope confirmation
 - Passive collectors: DNS/CAA, HTTPS redirect & reachability, TLS certificate
@@ -18,26 +18,32 @@ act & verify → history) rather than adding a disconnected tool.
 - Transparent prioritization (no opaque score)
 - Local SQLite storage, JSON + human reports, CI-friendly CLI exit codes
 
-### v0.2.0 — 2026-11-07 · daily usefulness
+### v0.2.0 - 2026-11-07 · daily usefulness
 
 - `dlos watch`: scheduled rechecks (`--every`), webhook notifications
   (`--webhook`), severity filtering, and `--once` for OS schedulers
-- Change digest that reports only new/regressed findings — recurring issues
+- Change digest that reports only new/regressed findings - recurring issues
   never nag
 - New rules: security.txt (RFC 9116), cookie security flags
-  (Secure/HttpOnly/SameSite — flag presence only, never cookie names or values)
+  (Secure/HttpOnly/SameSite - flag presence only, never cookie names or values)
 - All 18 Dependabot alerts cleared; `pnpm audit` clean
 
-## 🎯 Next — v0.3 · desktop experience
+## 🚧 In development - v0.3 · desktop experience
 
-- Desktop app (Electron, sandboxed renderer, narrow validated bridge) on the
-  **same shared engine** — the CLI stays first-class
-- Asset relationship graph, only after the data model has proven dependable
-- Project profiles for web developers
+- Local dashboard (`dlos ui`): overview, findings with the full contract,
+  history - served on 127.0.0.1 by the shared engine
+- Interactive relationship graph: assets → checks → findings over real
+  evidence, healthy checks included
+- Electron shell (`@dlos/desktop`): sandboxed renderer, context isolation,
+  one-method bridge - the CLI stays first-class
+- Windows packaging: NSIS installer + portable executable
+  (electron-builder, `pnpm --filter @dlos/desktop package`)
+- HTML report export (`dlos report --format html`)
+- Still open: project profiles for web developers
 
 ## 💭 Exploring (no commitment)
 
-- Device posture collectors (OS version, firewall, disk encryption) —
+- Device posture collectors (OS version, firewall, disk encryption) -
   platform-specific and explicitly scoped
 - Browser extension for explaining the current page's signals
 - Plugin architecture for community collectors/rules
@@ -46,5 +52,5 @@ act & verify → history) rather than adding a disconnected tool.
 ## Versioning
 
 [Semantic Versioning](https://semver.org). During 0.x, minor versions may
-contain breaking changes — every breaking change is called out at the top of
+contain breaking changes - every breaking change is called out at the top of
 the release notes in [CHANGELOG.md](CHANGELOG.md).

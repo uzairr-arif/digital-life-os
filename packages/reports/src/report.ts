@@ -9,7 +9,7 @@ import type {
   ScanSummary,
 } from "@dlos/core";
 
-export const TOOL_VERSION = "0.2.0";
+export const TOOL_VERSION = "0.3.0";
 
 export interface ReportFinding extends Finding {
   /** Latest lifecycle change observed for this finding (new/recurring/resolved/regressed). */
@@ -79,7 +79,7 @@ export function reportFromScanResult(
   });
 }
 
-/** Stable, pretty-printed JSON — machine-readable output must be valid JSON and nothing else. */
+/** Stable, pretty-printed JSON - machine-readable output must be valid JSON and nothing else. */
 export function serializeReportJson(report: ReportJson): string {
   return JSON.stringify(report, null, 2);
 }
