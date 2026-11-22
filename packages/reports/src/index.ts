@@ -4,6 +4,7 @@ export {
   serializeReportJson,
   TOOL_VERSION,
 } from "./report";
+export { renderReportHtml } from "./html";
 export type { ReportJson, ReportFinding, ReportInput } from "./report";
 export {
   renderReport,

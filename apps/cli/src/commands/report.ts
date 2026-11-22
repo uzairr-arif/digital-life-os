@@ -6,6 +6,7 @@ import { passCatalog } from "@dlos/rules";
 import {
   buildReport,
   renderReport,
+  renderReportHtml,
   serializeReportJson,
 } from "@dlos/reports";
 import { fail, ctxFrom, note } from "../ui";
@@ -19,7 +20,7 @@ export function registerReportCommand(program: Command): void {
   program
     .command("report <target>")
     .description("Render a report for an asset from the latest scan")
-    .option("--format <format>", "text or json", "text")
+    .option("--format <format>", "text, json or html", "text")
     .option("--out <file>", "write the report to a file instead of stdout")
     .action((target: string, opts, cmd) => {
       const { storage } = ctxFrom(cmd);
@@ -29,8 +30,8 @@ export function registerReportCommand(program: Command): void {
       } catch (err) {
         return fail(err instanceof Error ? err.message : String(err));
       }
-      if (opts.format !== "text" && opts.format !== "json") {
-        return fail(`invalid --format "${opts.format}" (expected: text, json)`);
+      if (opts.format !== "text" && opts.format !== "json" && opts.format !== "html") {
+        return fail(`invalid --format "${opts.format}" (expected: text, json, html)`);
       }
 
       const asset = storage.getAssetByIdentifier(identifier);
@@ -39,7 +40,7 @@ export function registerReportCommand(program: Command): void {
       const scans = storage.listScans(asset.id, 10).filter((s) => s.status === "completed");
       const scan = scans[0];
       if (!scan) {
-        return fail(`no completed scan for ${identifier} yet — run: dlos scan ${identifier}`);
+        return fail(`no completed scan for ${identifier} yet - run: dlos scan ${identifier}`);
       }
 
       const findings = storage
@@ -55,7 +56,13 @@ export function registerReportCommand(program: Command): void {
       const report = buildReport({ asset, scan, findings, passes, erroredChecks, events });
 
       if (opts.out) {
-        writeFileSync(opts.out, serializeReportJson(report), "utf8");
+        const body =
+          opts.format === "json"
+            ? serializeReportJson(report)
+            : opts.format === "html"
+              ? renderReportHtml(report)
+              : renderReport(report);
+        writeFileSync(opts.out, body, "utf8");
         console.log(`✔ report written to ${opts.out}`);
         return;
       }
@@ -63,6 +70,11 @@ export function registerReportCommand(program: Command): void {
       if (opts.format === "json") {
         // Machine mode: stdout carries JSON and nothing else.
         console.log(serializeReportJson(report));
+        return;
+      }
+      if (opts.format === "html") {
+        console.log(renderReportHtml(report));
+        note("self-contained HTML — open in any browser, or write with --out report.html");
         return;
       }
       console.log(renderReport(report));
