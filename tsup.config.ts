@@ -10,9 +10,10 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  // CJS deps break when bundled into ESM ("Dynamic require of events") —
+  // CJS deps break when bundled into ESM ("Dynamic require of events") -
   // keep them as real runtime imports; they are dependencies of @dlos/cli.
   external: ["commander", "chalk"],
+  noExternal: [/^@dlos\//],
   banner: {
     js: "#!/usr/bin/env node",
   },

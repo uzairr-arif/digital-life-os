@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dlos - local dashboard</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/dashboard.css">
+<script>try{if(localStorage.getItem("dlos-theme")==="light")document.documentElement.classList.add("light");}catch(e){}</script>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">
+      <img src="/assets/favicon.svg" alt="">
+      <span class="name">digital life os</span>
+      <span class="short mono" id="version"></span>
+      <span class="chip mono">local dashboard</span>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="btn-theme" title="Toggle dark and light theme">Light theme</button>
+      <button class="btn ghost" id="btn-refresh" title="Reload data">Refresh</button>
+      <button class="btn primary" id="btn-scan-all">Scan all assets</button>
+    </div>
+  </header>
+  <div class="shell">
+    <nav>
+      <button class="nav-btn active" data-route="overview">Overview</button>
+      <button class="nav-btn" data-route="graph">Relationship graph</button>
+      <button class="nav-btn" data-route="history">History</button>
+      <div class="nav-foot">
+        <p>Everything on this page comes from SQLite on this machine. The only
+        mutating endpoint is the scan trigger, gated by a per-boot token.</p>
+      </div>
+    </nav>
+    <main id="main"></main>
+  </div>
+  <aside id="drawer" class="drawer" hidden>
+    <div class="drawer-head">
+      <span id="drawer-title"></span>
+      <button class="btn ghost" id="drawer-close">Close</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+  <div id="toast" class="toast" hidden></div>
+</div>
+<script>window.__DLOS_TOKEN__ = "__TOKEN__";</script>
+<script src="/assets/dashboard.js"></script>
+</body>
+</html>

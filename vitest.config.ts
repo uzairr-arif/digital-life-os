@@ -11,6 +11,7 @@ export default defineConfig({
       "@dlos/rules": `${root}packages/rules/src/index.ts`,
       "@dlos/storage": `${root}packages/storage/src/index.ts`,
       "@dlos/reports": `${root}packages/reports/src/index.ts`,
+      "@dlos/server": `${root}packages/server/src/index.ts`,
     },
   },
   test: {

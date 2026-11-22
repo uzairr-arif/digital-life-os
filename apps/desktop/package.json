@@ -1,0 +1,51 @@
+{
+  "name": "@dlos/desktop",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Digital Life OS desktop shell (Electron) - sandboxed renderer over the local dashboard",
+  "type": "module",
+  "main": "dist/main.js",
+  "author": {
+    "name": "Uzair Arif"
+  },
+  "scripts": {
+    "build": "tsup && node ../../scripts/copy-public.cjs",
+    "start": "electron .",
+    "package": "electron-builder"
+  },
+  "build": {
+    "appId": "dev.dlos.desktop",
+    "productName": "Digital Life OS",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "preload.cjs",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "artifactName": "dlos-setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "dlos-portable-${version}.${ext}"
+    }
+  },
+  "dependencies": {
+    "@dlos/server": "workspace:*",
+    "@dlos/storage": "workspace:*"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0",
+    "tsup": "^9.0.0"
+  }
+}

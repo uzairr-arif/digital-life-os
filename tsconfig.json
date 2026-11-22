@@ -21,7 +21,8 @@
       "@dlos/collectors": ["packages/collectors/src/index.ts"],
       "@dlos/rules": ["packages/rules/src/index.ts"],
       "@dlos/storage": ["packages/storage/src/index.ts"],
-      "@dlos/reports": ["packages/reports/src/index.ts"]
+      "@dlos/reports": ["packages/reports/src/index.ts"],
+      "@dlos/server": ["packages/server/src/index.ts"]
     }
   },
   "include": [

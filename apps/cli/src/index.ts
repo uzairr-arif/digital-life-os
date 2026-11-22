@@ -8,13 +8,14 @@ import { registerFindingsCommands } from "./commands/findings";
 import { registerHistoryCommand } from "./commands/history";
 import { registerReportCommand } from "./commands/report";
 import { registerWatchCommand } from "./commands/watch";
+import { registerUiCommand } from "./commands/ui";
 
 const program = new Command();
 
 program
   .name("dlos")
   .description(
-    "Digital Life OS — a local-first, evidence-driven personal security companion.\n\n" +
+    "Digital Life OS - a local-first, evidence-driven personal security companion.\n\n" +
       "Know what you own, understand what is exposed, fix what matters, and verify the fix.",
   )
   .version(TOOL_VERSION)
@@ -26,6 +27,7 @@ registerFindingsCommands(program);
 registerHistoryCommand(program);
 registerReportCommand(program);
 registerWatchCommand(program);
+registerUiCommand(program);
 
 program
   .parseAsync(process.argv)

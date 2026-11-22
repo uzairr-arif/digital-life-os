@@ -7,3 +7,12 @@ dist/
 
 # launch videos and their intermediates stay local
 brag-output/
+
+# local verification helpers
+install-retry.sh
+install-retry.log
+
+# packaged desktop artifacts
+apps/desktop/release/
+# local package-manager tuning
+.npmrc

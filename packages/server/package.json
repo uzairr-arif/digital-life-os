@@ -1,0 +1,14 @@
+{
+  "name": "@dlos/server",
+  "version": "0.3.0",
+  "description": "Local dashboard server (127.0.0.1 only) for Digital Life OS",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@dlos/collectors": "workspace:*",
+    "@dlos/core": "workspace:*",
+    "@dlos/rules": "workspace:*"
+  }
+}
